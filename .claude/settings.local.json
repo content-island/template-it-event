@@ -1,0 +1,12 @@
+{
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "content-island",
+    "context7"
+  ],
+  "permissions": {
+    "allow": [
+      "mcp__content-island__get-content-island-project"
+    ]
+  }
+}
