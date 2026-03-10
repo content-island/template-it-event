@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "content-island": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@content-island/mcp"
+      ],
+      "env": {
+        "CONTENT_ISLAND_ACCESS_TOKEN": ""
+      }
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp",
+        "--api-key",
+        ""
+      ],
+      "env": {}
+    }
+  }
+}
