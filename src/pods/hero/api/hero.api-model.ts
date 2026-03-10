@@ -1,3 +1,5 @@
+import type { Media } from "@content-island/api-client";
+
 export interface HeroSectionApiModel {
   id: string;
   title: string;
@@ -6,4 +8,5 @@ export interface HeroSectionApiModel {
   description: string;
   ticketCtaText: string;
   ticketCtaUrl: string;
+  backgroundImage?: Media;
 }

@@ -9,6 +9,7 @@ export function mapHeroSection(api: HeroSectionApiModel): HeroSectionModel {
     description: api.description,
     ticketCtaText: api.ticketCtaText,
     ticketCtaUrl: api.ticketCtaUrl,
+    backgroundImage: api.backgroundImage?.url,
   };
 }
 

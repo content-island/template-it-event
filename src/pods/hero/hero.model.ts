@@ -5,4 +5,5 @@ export interface HeroSectionModel {
   description: string;
   ticketCtaText: string;
   ticketCtaUrl: string;
+  backgroundImage?: string;
 }
