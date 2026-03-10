@@ -1,0 +1,39 @@
+---
+import { getHeader } from "./api/header.api";
+import { mapHeader } from "./header.mapper";
+import NavItem from "./components/nav-item.astro";
+import Menu from "lucide-astro/Menu";
+
+const raw = await getHeader();
+if (!raw) return;
+const header = mapHeader(raw);
+---
+<header class="navbar bg-base-200/80 backdrop-blur-lg px-6 lg:px-8 sticky top-0 z-50 border-b border-base-300/60 min-h-16">
+  <div class="navbar-start">
+    <a href="/" class="text-xl text-primary font-(--font-title) tracking-tight">
+      {header.eventName}
+    </a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 gap-2">
+      {header.navigationItems.map((item) => (
+        <NavItem label={item.label} url={item.url} />
+      ))}
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <a href={header.ctaUrl} class="btn btn-primary btn-md font-semibold shadow-sm hidden lg:flex">
+      {header.ctaText}
+    </a>
+    <div class="dropdown dropdown-end lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost">
+        <Menu size={20} />
+      </div>
+      <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 z-10 mt-3 p-4 shadow-lg w-full fixed left-0 right-0 rounded-none border-b border-base-300/60">
+        {header.navigationItems.map((item) => (
+          <NavItem label={item.label} url={item.url} />
+        ))}
+      </ul>
+    </div>
+  </div>
+</header>

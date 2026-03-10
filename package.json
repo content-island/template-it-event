@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^5.18.0",
     "daisyui": "^5.5.19",
+    "lucide-astro": "^0.556.0",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {

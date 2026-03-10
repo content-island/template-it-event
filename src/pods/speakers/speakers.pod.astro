@@ -1,0 +1,31 @@
+---
+import { getSpeakersSection } from "./api/speakers.api";
+import { mapSpeakersSection } from "./speakers.mapper";
+import SpeakerCard from "./components/speaker-card.astro";
+
+const raw = await getSpeakersSection();
+if (!raw) return;
+const section = mapSpeakersSection(raw);
+---
+<section id="speakers" class="section-padding px-6">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title md:text-5xl">{section.title}</h2>
+    </div>
+    {/* Mobile: horizontal slider */}
+    <div class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth lg:hidden
+                [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {section.speakers.map((speaker) => (
+        <div class="snap-start shrink-0 w-64">
+          <SpeakerCard speaker={speaker} />
+        </div>
+      ))}
+    </div>
+    {/* Desktop: 3-column grid */}
+    <div class="hidden lg:grid lg:grid-cols-3 gap-8">
+      {section.speakers.map((speaker) => (
+        <SpeakerCard speaker={speaker} />
+      ))}
+    </div>
+  </div>
+</section>

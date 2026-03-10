@@ -1,0 +1,21 @@
+---
+import { getScheduleSection } from "./api/schedule.api";
+import { mapScheduleSection } from "./schedule.mapper";
+import ScheduleItemComponent from "./components/schedule-item.astro";
+
+const raw = await getScheduleSection();
+if (!raw) return;
+const section = mapScheduleSection(raw);
+---
+<section id="schedule" class="section-padding bg-base-200/50">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="section-header">
+      <h2 class="section-title md:text-5xl">{section.title}</h2>
+    </div>
+    <div class="flex flex-col gap-1">
+      {section.items.map((item) => (
+        <ScheduleItemComponent item={item} />
+      ))}
+    </div>
+  </div>
+</section>

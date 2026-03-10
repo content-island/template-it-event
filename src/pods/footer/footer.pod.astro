@@ -1,0 +1,28 @@
+---
+import { getFooter } from "./api/footer.api";
+import { mapFooter } from "./footer.mapper";
+import SocialIcon from "#shared/components/social-icon.astro";
+
+const raw = await getFooter();
+const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
+---
+<footer class="bg-base-300/50 border-t border-base-300/40 py-12 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+    <p class="text-faint text-sm text-center sm:text-left">{footer.text}</p>
+    {footer.socialLinks.length > 0 && (
+      <div class="flex items-center gap-4">
+        {footer.socialLinks.map((link) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={link.tag}
+            class="inline-flex text-subtle hover:text-primary transition-colors duration-200"
+          >
+            <SocialIcon tag={link.tag} size={20} class="pointer-events-none" />
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</footer>

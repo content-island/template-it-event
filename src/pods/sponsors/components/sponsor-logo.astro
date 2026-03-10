@@ -1,0 +1,36 @@
+---
+import type { SponsorItemModel } from "../sponsors.model";
+
+interface Props {
+  sponsor: SponsorItemModel;
+  cardBorder: string;
+  cardPadding: string;
+  logoMaxH: string;
+  cardWidth: string;
+}
+const { sponsor, cardBorder, cardPadding, logoMaxH, cardWidth } = Astro.props;
+---
+<a
+  href={sponsor.websiteUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "flex items-center justify-center bg-base-300/50 rounded-xl border transition-all duration-300 group",
+    cardBorder,
+    cardPadding,
+    cardWidth,
+  ]}
+  title={sponsor.name}
+>
+  {sponsor.logoUrl ? (
+    <img
+      src={sponsor.logoUrl}
+      alt={sponsor.name}
+      class:list={["max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100", logoMaxH]}
+    />
+  ) : (
+    <span class="text-subtle font-semibold group-hover:text-primary transition-colors duration-200 text-sm text-center">
+      {sponsor.name}
+    </span>
+  )}
+</a>

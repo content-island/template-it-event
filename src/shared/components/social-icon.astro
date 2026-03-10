@@ -1,0 +1,45 @@
+---
+import Twitter from "lucide-astro/Twitter";
+import Linkedin from "lucide-astro/Linkedin";
+import Github from "lucide-astro/Github";
+import Instagram from "lucide-astro/Instagram";
+import Youtube from "lucide-astro/Youtube";
+import Facebook from "lucide-astro/Facebook";
+import Twitch from "lucide-astro/Twitch";
+import Globe from "lucide-astro/Globe";
+
+import type { SocialTags } from "../social-tags.model";
+
+interface Props {
+  tag: SocialTags;
+  size?: number;
+  class?: string;
+}
+
+const { tag, size = 16, class: className } = Astro.props;
+
+const normalizeTag = (tag: SocialTags) => {
+  const aliasMap: Record<string, string> = {
+    x: "twitter",
+    fb: "facebook",
+  };
+
+  return aliasMap[tag] ?? tag;
+};
+
+const iconMap = {
+  twitter: Twitter,
+  linkedin: Linkedin,
+  github: Github,
+  instagram: Instagram,
+  youtube: Youtube,
+  facebook: Facebook,
+  twitch: Twitch,
+  website: Globe,
+} as const;
+
+const normalized = normalizeTag(tag);
+const Icon = iconMap[normalized as keyof typeof iconMap];
+---
+
+{Icon && <Icon size={size} class={className} />}

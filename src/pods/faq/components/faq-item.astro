@@ -1,0 +1,17 @@
+---
+import type { FAQItemModel } from "../faq.model";
+
+interface Props {
+  item: FAQItemModel;
+}
+const { item } = Astro.props;
+---
+<div class="card-elevated collapse collapse-arrow border">
+  <input type="checkbox" />
+  <div class="collapse-title font-semibold text-base-content pr-8">
+    {item.question}
+  </div>
+  <div class="collapse-content">
+    <p class="text-muted text-sm leading-relaxed">{item.answer}</p>
+  </div>
+</div>

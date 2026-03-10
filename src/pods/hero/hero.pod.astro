@@ -1,0 +1,37 @@
+---
+import { getHeroSection } from "./api/hero.api";
+import { mapHeroSection } from "./hero.mapper";
+import Calendar from "lucide-astro/Calendar";
+
+const raw = await getHeroSection();
+if (!raw) return;
+const hero = mapHeroSection(raw);
+---
+<section class="relative overflow-hidden bg-base-100 py-28 md:py-36 px-4 lg:px-8">
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute -top-32 -left-32 w-lg h-128 rounded-full bg-primary/8 blur-3xl"></div>
+    <div class="absolute -bottom-32 -right-32 w-lg h-128 rounded-full bg-secondary/6 blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-4xl mx-auto text-center">
+    
+    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-base-content leading-[1.05] mb-8 font-(--font-title) tracking-tight">
+      {hero.title}
+    </h1>
+    
+    <div class="mb-8 inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-base-content/10 bg-base-content/5 text-sm font-medium text-base-content/70">
+      <Calendar size={16} class="shrink-0 opacity-60" />
+      <span>{hero.date}</span>
+      <span class="opacity-30 mx-0.5">·</span>
+      <span>{hero.location}</span>
+    </div>
+
+    <p class="text-lg md:text-xl section-description max-w-2xl mx-auto mb-12">
+      {hero.description}
+    </p>
+
+    <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base font-bold shadow-lg shadow-primary/20">
+      {hero.ticketCtaText}
+    </a>
+  </div>
+</section>

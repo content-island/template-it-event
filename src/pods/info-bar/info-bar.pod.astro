@@ -1,0 +1,32 @@
+---
+import { getInfoBar } from "./api/info-bar.api";
+import { mapInfoBar } from "./info-bar.mapper";
+import MapPin from "lucide-astro/MapPin";
+import CalendarPlus from "lucide-astro/CalendarPlus";
+import Share2 from "lucide-astro/Share2";
+
+const raw = await getInfoBar();
+if (!raw) return;
+const infoBar = mapInfoBar(raw);
+---
+<div class="bg-base-300/50 border-b border-base-300/60 py-3 px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 text-sm">
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-2">
+        <MapPin size={16} class="text-primary shrink-0" />
+        <strong class="text-base-content">{infoBar.venueName}</strong>
+        <span class="text-subtle">{infoBar.venueLocation}</span>
+      </span>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href={infoBar.addToCalendarUrl} class="btn btn-xs btn-outline btn-primary gap-1.5">
+        <CalendarPlus size={14} />
+        Add to Calendar
+      </a>
+      <a href={infoBar.shareLinkUrl} class="btn btn-xs btn-ghost text-subtle link-hover-primary gap-1.5">
+        <Share2 size={14} />
+        Share
+      </a>
+    </div>
+  </div>
+</div>
