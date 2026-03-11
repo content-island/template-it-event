@@ -21,7 +21,7 @@ const { speaker } = Astro.props;
   )}
   <div class="flex flex-col justify-center items-center gap-1">
     <h3 class="text-base font-bold text-base-content">{speaker.name}</h3>
-    <p class="text-primary font-medium text-sm">{speaker.jobTitle}</p>
+    <p class="text-secondary font-medium text-sm">{speaker.jobTitle}</p>
     <p class="text-subtle text-sm">{speaker.company}</p>
     <p class="text-muted text-sm mt-3 line-clamp-3 leading-relaxed">{speaker.description}</p>
     {speaker.socialLinks.length > 0 && (
