@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: ["event-template"];
+  themes: ["event-template", "event-template-light"];
 }
 
 @plugin "daisyui/theme" {
@@ -20,6 +20,21 @@
   --color-base-200: #1a1a1a;
   --color-base-300: #222222;
   --color-base-content: #f0f0f0;
+}
+
+@plugin "daisyui/theme" {
+  name: "event-template-light";
+  color-scheme: light;
+  --color-primary: #f7df20;
+  --color-primary-content: #111111;
+  --color-secondary: #ff6b6b;
+  --color-secondary-content: #ffffff;
+  --color-accent: #f7df20;
+  --color-neutral: #e8e8e8;
+  --color-base-100: #ffffff;
+  --color-base-200: #f5f5f5;
+  --color-base-300: #e8e8e8;
+  --color-base-content: #111111;
 }
 
 /* ─────────────────────────────────────────────────
@@ -134,6 +149,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body, sans-serif);
 }
 
 ::selection {

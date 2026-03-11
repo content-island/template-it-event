@@ -13,13 +13,13 @@ const infoBar = mapInfoBar(raw);
   <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 text-sm">
     <div class="flex items-center gap-4">
       <span class="flex items-center gap-2">
-        <MapPin size={16} class="text-primary shrink-0" />
+        <MapPin size={16} class="text-secondary shrink-0" />
         <strong class="text-base-content">{infoBar.venueName}</strong>
         <span class="text-subtle">{infoBar.venueLocation}</span>
       </span>
     </div>
     <div class="flex items-center gap-2">
-      <a href={infoBar.addToCalendarUrl} class="btn btn-xs btn-outline btn-primary gap-1.5">
+      <a href={infoBar.addToCalendarUrl} class="btn btn-xs btn-primary gap-1.5">
         <CalendarPlus size={14} />
         Add to Calendar
       </a>

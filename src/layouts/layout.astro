@@ -1,32 +1,15 @@
 ---
 import "../styles/global.css";
-import { getTheme } from "#/pods/theme/api/theme.api";
-import { mapTheme } from "#/pods/theme/theme.mapper";
-import { getGeneral } from "#/pods/general/api/general.api";
-import { getFonts } from "#/pods/font/api/font.api";
+import { getLayoutData } from "#layouts/layout-data";
+import { buildThemeCSS } from "#/lib/theme-css";
+import { Theme } from "#/pods/theme/theme.model";
 import HeaderPod from "#/pods/header/header.pod.astro";
 import FooterPod from "#/pods/footer/footer.pod.astro";
-import { generateColorScaleVars } from "#/lib/color-scale";
 
-const rawTheme = await getTheme();
-const theme = rawTheme ? mapTheme(rawTheme) : null;
-
-const general = await getGeneral();
-const fonts = await getFonts();
-
-const themeVars = theme
-  ? [
-      `--color-primary: ${theme.colorPrimary}`,
-      `--color-secondary: ${theme.colorSecondary}`,
-      `--font-title: ${theme.fontTitle}`,
-      `--font-body: ${theme.fontBody}`,
-      generateColorScaleVars(theme.colorPrimary, "primary"),
-      generateColorScaleVars(theme.colorSecondary, "secondary"),
-    ].join("; ")
-  : undefined;
+const { theme, general, fonts } = await getLayoutData();
 ---
 <!doctype html>
-<html lang="en" data-theme="event-template" style={themeVars}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,11 +17,16 @@ const themeVars = theme
     {fonts.map((font) => (
       <link rel="stylesheet" href={font.url} />
     ))}
-    <style is:global>
-      body {
-        font-family: var(--font-body, sans-serif);
-      }
-    </style>
+    {theme && <style set:html={buildThemeCSS(theme)} />}
+    <script is:inline define:vars={{ darkTheme: Theme.Dark, lightTheme: Theme.Light }}>
+      (() => {
+        const storedTheme = localStorage.getItem("theme");
+        const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches
+          ? lightTheme
+          : darkTheme;
+        document.documentElement.dataset.theme = storedTheme ?? systemTheme;
+      })();
+    </script>
     <title>Event</title>
   </head>
   <body class="bg-base-100 text-base-content min-h-screen">

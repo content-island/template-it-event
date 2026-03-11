@@ -3,6 +3,8 @@ import { getHeader } from "./api/header.api";
 import { mapHeader } from "./header.mapper";
 import NavItem from "./components/nav-item.astro";
 import Menu from "lucide-astro/Menu";
+import Sun from "lucide-astro/Sun";
+import Moon from "lucide-astro/Moon";
 
 const raw = await getHeader();
 if (!raw) return;
@@ -10,7 +12,7 @@ const header = mapHeader(raw);
 ---
 <header class="navbar bg-base-200/80 backdrop-blur-lg px-6 lg:px-8 sticky top-0 z-50 border-b border-base-300/60 min-h-16">
   <div class="navbar-start">
-    <a href="/" class="text-xl text-primary font-(--font-title) tracking-tight">
+    <a href="/" class="text-xl text-base-content font-(--font-title) tracking-tight">
       {header.eventName}
     </a>
   </div>
@@ -21,7 +23,15 @@ const header = mapHeader(raw);
       ))}
     </ul>
   </div>
-  <div class="navbar-end">
+  <div class="navbar-end gap-2">
+    <button
+      id="theme-toggle"
+      aria-label="Toggle theme"
+      class="btn btn-ghost btn-sm"
+    >
+      <Sun size={18} id="theme-icon-sun" />
+      <Moon size={18} id="theme-icon-moon" />
+    </button>
     <a href={header.ctaUrl} class="btn btn-primary btn-md font-semibold shadow-sm hidden lg:flex">
       {header.ctaText}
     </a>
@@ -37,3 +47,26 @@ const header = mapHeader(raw);
     </div>
   </div>
 </header>
+
+<script>
+import { Theme } from "#pods/theme/theme.model";
+  const btn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  const sunIcon = document.getElementById('theme-icon-sun');
+  const moonIcon = document.getElementById('theme-icon-moon');
+
+  function applyTheme(theme: Theme) {
+    root.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+    const isDark = theme === Theme.Dark;
+    sunIcon?.classList.toggle('hidden', isDark);
+    moonIcon?.classList.toggle('hidden', !isDark);
+  }
+
+  applyTheme((root.dataset.theme as Theme) ?? Theme.Dark);
+
+  btn?.addEventListener('click', () => {
+    const next = root.dataset.theme === Theme.Dark ? Theme.Light : Theme.Dark;
+    applyTheme(next);
+  });
+</script>
