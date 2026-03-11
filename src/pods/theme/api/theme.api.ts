@@ -12,8 +12,7 @@ export async function getTheme(): Promise<ThemeApiModel | null> {
 
 export async function getThemeDark(id: string): Promise<ThemeDarkApiModel | null> {
   try {
-    const list = await client.getContentList<ThemeDarkApiModel>({ contentType: "ThemeDark" });
-    return list.find(item => item.id === id) ?? null;
+    return await client.getContent<ThemeDarkApiModel>({ contentType: "ThemeDark", id });
   } catch {
     return null;
   }
@@ -21,8 +20,7 @@ export async function getThemeDark(id: string): Promise<ThemeDarkApiModel | null
 
 export async function getThemeLight(id: string): Promise<ThemeLightApiModel | null> {
   try {
-    const list = await client.getContentList<ThemeLightApiModel>({ contentType: "ThemeLight" });
-    return list.find(item => item.id === id) ?? null;
+    return await client.getContent<ThemeLightApiModel>({ contentType: "ThemeLight", id });
   } catch {
     return null;
   }
