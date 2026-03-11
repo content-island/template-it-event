@@ -55,6 +55,11 @@ const header = mapHeader(raw);
   const sunIcon = document.getElementById('theme-icon-sun');
   const moonIcon = document.getElementById('theme-icon-moon');
 
+  function normalizeTheme(value: string | undefined | null): Theme {
+    if (value === Theme.Light || value === Theme.Dark) return value;
+    return Theme.Dark;
+  }
+
   function applyTheme(theme: Theme) {
     root.dataset.theme = theme;
     localStorage.setItem('theme', theme);
@@ -63,10 +68,10 @@ const header = mapHeader(raw);
     moonIcon?.classList.toggle('hidden', !isDark);
   }
 
-  applyTheme((root.dataset.theme as Theme) ?? Theme.Dark);
+  applyTheme(normalizeTheme(root.dataset.theme));
 
   btn?.addEventListener('click', () => {
-    const next = root.dataset.theme === Theme.Dark ? Theme.Light : Theme.Dark;
-    applyTheme(next);
+    const current = normalizeTheme(root.dataset.theme);
+    applyTheme(current === Theme.Dark ? Theme.Light : Theme.Dark);
   });
 </script>
