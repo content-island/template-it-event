@@ -5,36 +5,43 @@ import { getCookies } from "#/pods/cookies/api/cookies.api";
 
 const [raw, cookiesPage] = await Promise.all([getCookieBanner(), getCookies()]);
 if (!raw) return;
+
 const banner = mapCookieBanner(raw);
 const cookiesUrl = cookiesPage ? `/${cookiesPage.slug}` : "/cookies";
 ---
+
 <div
-  id="cookie-banner"
+  data-cookie-banner
+  role="dialog"
+  aria-live="polite"
   class="fixed bottom-6 left-6 z-50 max-w-sm w-[calc(100vw-3rem)] sm:w-sm
     bg-base-200 border border-base-300/60 rounded-2xl shadow-xl p-5
-    flex flex-col gap-3 transition-all duration-300"
+    flex flex-col gap-3 transition-all duration-300 hidden"
 >
   <div>
-    <h3 class="font-semibold text-base-content text-base mb-1">{banner.title}</h3>
+    <h3 class="font-semibold text-base-content text-base mb-1">
+      {banner.title}
+    </h3>
+
     <p class="text-subtle text-sm leading-relaxed">
       {banner.description}
+
       <a
         href={cookiesUrl}
-        class="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors ml-1"
+        class="underline underline-offset-2 hover:opacity-50 transition-colors ml-1"
       >
         {banner.learnMore}
       </a>
     </p>
   </div>
+
   <div class="flex gap-2">
-    <button
-      id="cookie-accept-all"
-      class="btn btn-primary btn-sm flex-1"
-    >
+    <button data-accept-all class="btn btn-primary btn-sm flex-1">
       {banner.acceptAll}
     </button>
+
     <button
-      id="cookie-only-essential"
+      data-only-essential
       class="btn btn-ghost btn-sm flex-1 border border-base-300/60"
     >
       {banner.onlyEssential}
@@ -43,24 +50,34 @@ const cookiesUrl = cookiesPage ? `/${cookiesPage.slug}` : "/cookies";
 </div>
 
 <script is:inline>
-  const COOKIE_KEY = "cookie-consent";
-  const banner = document.getElementById("cookie-banner");
+  (function () {
+    const COOKIE_KEY = "cookie-consent";
+    const banner = document.querySelector("[data-cookie-banner]");
+    if (!banner) return;
 
-  if (!banner) return;
+    const consent = localStorage.getItem(COOKIE_KEY);
 
-  if (localStorage.getItem(COOKIE_KEY)) {
-    banner.remove();
-    return;
-  }
+    if (consent === "all" || consent === "essential") {
+      banner.remove();
+      return;
+    }
 
-  function dismiss(value) {
-    localStorage.setItem(COOKIE_KEY, value);
-    banner.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-    banner.style.opacity = "0";
-    banner.style.transform = "translateY(1rem)";
-    setTimeout(function () { banner.remove(); }, 300);
-  }
+    banner.classList.remove("hidden");
 
-  document.getElementById("cookie-accept-all").addEventListener("click", function () { dismiss("all"); });
-  document.getElementById("cookie-only-essential").addEventListener("click", function () { dismiss("essential"); });
+    const acceptAll = banner.querySelector("[data-accept-all]");
+    const essential = banner.querySelector("[data-only-essential]");
+
+    function dismiss(value) {
+      localStorage.setItem(COOKIE_KEY, value);
+
+      banner.classList.add("opacity-0", "translate-y-4");
+
+      setTimeout(() => {
+        banner.remove();
+      }, 300);
+    }
+
+    acceptAll?.addEventListener("click", () => dismiss("all"));
+    essential?.addEventListener("click", () => dismiss("essential"));
+  })();
 </script>
