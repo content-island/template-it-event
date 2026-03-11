@@ -1,0 +1,28 @@
+---
+import { getCookies } from "./api/cookies.api";
+import { mapCookies } from "./cookies.mapper";
+import { parseMarkdown } from "#/lib/markdown";
+
+const raw = await getCookies();
+if (!raw) return;
+const { text } = mapCookies(raw);
+const htmlContent = await parseMarkdown(text);
+---
+<main class="mx-auto max-w-3xl px-6 py-20 lg:px-8">
+  <div
+    set:html={htmlContent}
+    class="prose prose-slate dark:prose-invert max-w-none
+      [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mb-8 [&>h1]:text-base-content
+      [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-10 [&>h2]:mb-4 [&>h2]:text-base-content
+      [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:mt-6 [&>h3]:mb-3 [&>h3]:text-base-content
+      [&>p]:text-base-content/80 [&>p]:leading-relaxed [&>p]:mb-4
+      [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-4 [&>ul]:text-base-content/80
+      [&>ol]:list-decimal [&>ol]:ml-6 [&>ol]:mb-4 [&>ol]:text-base-content/80
+      [&>li]:mb-1
+      [&>strong]:font-semibold [&>strong]:text-base-content
+      [&>a]:text-primary [&>a]:underline [&>a]:transition-colors [&>a:hover]:text-primary/80
+      [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:text-base-content/70
+      [&>code]:bg-base-200 [&>code]:rounded [&>code]:px-1 [&>code]:py-0.5 [&>code]:text-sm
+      [&>pre]:bg-base-200 [&>pre]:rounded [&>pre]:p-4 [&>pre]:mb-4 [&>pre]:overflow-x-auto"
+  />
+</main>

@@ -1,0 +1,27 @@
+---
+import Layout from "#/layouts/layout.astro";
+import PrivacyPolicyPod from "#/pods/privacy-policy/privacy-policy.pod.astro";
+import CookiesPod from "#/pods/cookies/cookies.pod.astro";
+
+export function getStaticPaths() {
+  return [
+    { 
+      params: { 
+        slug: "privacy-policy" 
+      } 
+    },
+    { 
+      params: { 
+        slug: "cookies" 
+      } 
+    },
+  ];
+}
+
+const { slug } = Astro.params;
+---
+
+<Layout>
+  {slug === "privacy-policy" && <PrivacyPolicyPod />}
+  {slug === "cookies" && <CookiesPod />}
+</Layout>

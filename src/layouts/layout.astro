@@ -5,6 +5,7 @@ import { buildThemeCSS } from "#/lib/theme-css";
 import { Theme } from "#/pods/theme/theme.model";
 import HeaderPod from "#/pods/header/header.pod.astro";
 import FooterPod from "#/pods/footer/footer.pod.astro";
+import CookieBannerPod from "#/pods/cookie-banner/cookie-banner.pod.astro";
 
 const { theme, general, fonts } = await getLayoutData();
 ---
@@ -35,5 +36,6 @@ const { theme, general, fonts } = await getLayoutData();
       <slot />
     </main>
     <FooterPod />
+    <CookieBannerPod />
   </body>
 </html>
