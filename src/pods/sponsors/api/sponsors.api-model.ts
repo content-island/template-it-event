@@ -1,9 +1,15 @@
+import type { Media } from '@content-island/api-client';
+
+export type SponsorTierApiModel = 'Platinium' | 'Gold' | 'Silver';
+
 export interface SponsorItemApiModel {
   id: string;
+  language: 'en';
+  lastUpdate: string;
   name: string;
-  logoUrl?: string;
+  logo?: Media;
   websiteUrl: string;
-  tier: "Platinium" | "Gold" | "Silver";
+  tier: SponsorTierApiModel;
 }
 
 export interface SponsorsSectionApiModel {
@@ -14,3 +20,4 @@ export interface SponsorsSectionApiModel {
   ctaText: string;
   ctaUrl: string;
 }
+
