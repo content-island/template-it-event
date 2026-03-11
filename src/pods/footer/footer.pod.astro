@@ -1,14 +1,34 @@
 ---
 import { getFooter } from "./api/footer.api";
 import { mapFooter } from "./footer.mapper";
+import { getPrivacyPolicy } from "#/pods/privacy-policy/api/privacy-policy.api";
+import { getCookies } from "#/pods/cookies/api/cookies.api";
 import SocialIcon from "#shared/components/social-icon.astro";
 
-const raw = await getFooter();
+const [raw, privacyPolicy, cookies] = await Promise.all([getFooter(), getPrivacyPolicy(), getCookies()]);
 const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
 ---
 <footer class="bg-base-300/50 border-t border-base-300/40 py-12 px-6">
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-    <p class="text-faint text-sm text-center sm:text-left">{footer.text}</p>
+    <div class="flex flex-col sm:flex-row items-center gap-4 text-sm">
+      <p class="text-faint text-center sm:text-left">{footer.text}</p>
+      {privacyPolicy && (
+        <a
+          href={`/${privacyPolicy.slug}`}
+          class="text-subtle hover:text-primary transition-colors duration-200 underline-offset-4 hover:underline"
+        >
+          Privacy Policy
+        </a>
+      )}
+      {cookies && (
+        <a
+          href={`/${cookies.slug}`}
+          class="text-subtle hover:text-primary transition-colors duration-200 underline-offset-4 hover:underline"
+        >
+          Cookies
+        </a>
+      )}
+    </div>
     {footer.socialLinks.length > 0 && (
       <div class="flex items-center gap-4">
         {footer.socialLinks.map((link) => (
