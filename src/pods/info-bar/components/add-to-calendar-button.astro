@@ -1,0 +1,13 @@
+---
+import CalendarPlus from "lucide-astro/CalendarPlus";
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+<a href={href} target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-primary gap-1.5">
+  <CalendarPlus size={14} />
+  Add to Calendar
+</a>

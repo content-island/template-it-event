@@ -2,8 +2,8 @@
 import { getInfoBar } from "./api/info-bar.api";
 import { mapInfoBar } from "./info-bar.mapper";
 import MapPin from "lucide-astro/MapPin";
-import CalendarPlus from "lucide-astro/CalendarPlus";
-import Share2 from "lucide-astro/Share2";
+import AddToCalendarButton from "./components/add-to-calendar-button.astro";
+import ShareButton from "./components/share-button.astro";
 
 const raw = await getInfoBar();
 if (!raw) return;
@@ -19,14 +19,8 @@ const infoBar = mapInfoBar(raw);
       </span>
     </div>
     <div class="flex items-center gap-2">
-      <a href={infoBar.addToCalendarUrl} class="btn btn-xs btn-primary gap-1.5">
-        <CalendarPlus size={14} />
-        Add to Calendar
-      </a>
-      <a href={infoBar.shareLinkUrl} class="btn btn-xs btn-ghost text-subtle link-hover-primary gap-1.5">
-        <Share2 size={14} />
-        Share
-      </a>
+      <AddToCalendarButton href={infoBar.addToCalendarUrl} />
+      <ShareButton url={infoBar.shareLinkUrl} />
     </div>
   </div>
 </div>

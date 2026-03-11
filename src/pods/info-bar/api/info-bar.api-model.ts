@@ -1,7 +1,13 @@
 export interface InfoBarApiModel {
   id: string;
+  language: 'en';
+  lastUpdate: string;
   venueName: string;
   venueLocation: string;
-  addToCalendarUrl: string;
+  eventTitle: string;
+  start: string;    // DD/MM/YYYY
+  endDate: string;  // DD/MM/YYYY
+  timezone: string; // IANA timezone, e.g. "Europe/Madrid"
+  eventDescription?: string;
   shareLinkUrl: string;
 }
