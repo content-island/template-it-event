@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "predev": "node ./create-dev-env.js",
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
