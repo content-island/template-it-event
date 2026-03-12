@@ -12,7 +12,7 @@ export interface SpeakerItemRawApiModel {
   jobTitle: string;
   company: string;
   description: string;
-  SocialLinks?: string[];
+  SocialLinks?: SocialLinkApiModel[];
   imageUrl: Media;
 }
 
