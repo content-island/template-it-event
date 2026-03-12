@@ -1,37 +1,31 @@
-import { Theme, type ThemeModeModel, type ThemeModel } from "#/pods/theme/theme.model";
+import { Theme, type ThemeVariantModel, type ThemeModel } from "#/pods/theme/theme.model";
 import { generateColorScaleVars } from "./color-scale";
 import { sanitizeColor, sanitizeHexColor, sanitizeFontFamily } from "./sanitize-css";
 
-function buildModeVars(mode: ThemeModeModel): string {
-  return [
-    `--color-base-100: ${sanitizeColor(mode.colorBackground)}`,
-    `--color-base-200: ${sanitizeColor(mode.colorSurface)}`,
-    `--color-base-300: ${sanitizeColor(mode.colorCard)}`,
-    `--color-base-content: ${sanitizeColor(mode.colorText)}`,
-  ].join("; ");
-}
-
-function buildSharedVars(theme: ThemeModel): string {
-  const primary = sanitizeHexColor(theme.colorPrimary);
-  const secondary = sanitizeHexColor(theme.colorSecondary);
+function buildVariantVars(variant: ThemeVariantModel): string {
+  const primary = sanitizeHexColor(variant.colorPrimary);
+  const secondary = sanitizeHexColor(variant.colorSecondary);
 
   return [
     `--color-primary: ${primary}`,
     `--color-secondary: ${secondary}`,
-    `--font-title: ${sanitizeFontFamily(theme.fontTitle)}`,
-    `--font-body: ${sanitizeFontFamily(theme.fontBody)}`,
+    `--font-title: ${sanitizeFontFamily(variant.fontTitle)}`,
+    `--font-body: ${sanitizeFontFamily(variant.fontBody)}`,
     generateColorScaleVars(primary, "primary"),
     generateColorScaleVars(secondary, "secondary"),
+    `--color-base-100: ${sanitizeColor(variant.colorBackground)}`,
+    `--color-base-200: ${sanitizeColor(variant.colorSurface)}`,
+    `--color-base-300: ${sanitizeColor(variant.colorCard)}`,
+    `--color-base-content: ${sanitizeColor(variant.colorText)}`,
   ].join("; ");
 }
 
 export function buildThemeCSS(theme: ThemeModel): string {
-  const shared = buildSharedVars(theme);
-  const darkVars = theme.dark ? buildModeVars(theme.dark) : "";
-  const lightVars = theme.light ? buildModeVars(theme.light) : "";
+  const darkVars = theme.dark ? buildVariantVars(theme.dark) : "";
+  const lightVars = theme.light ? buildVariantVars(theme.light) : "";
 
   return `
-    [data-theme="${Theme.Dark}"] { ${shared}; ${darkVars} }
-    [data-theme="${Theme.Light}"] { ${shared}; ${lightVars} }
+    [data-theme="${Theme.Dark}"] { ${darkVars} }
+    [data-theme="${Theme.Light}"] { ${lightVars} }
   `;
 }

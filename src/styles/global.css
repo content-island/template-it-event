@@ -38,6 +38,18 @@
 }
 
 /* ─────────────────────────────────────────────────
+   Dynamic content colors
+   Computed reactively from the primary/secondary CSS vars.
+   If primary/secondary is dark (oklch l < 0.5) → content = white; else → black.
+   ───────────────────────────────────────────────── */
+
+[data-theme="event-template"],
+[data-theme="event-template-light"] {
+  --color-primary-content: oklch(from var(--color-primary) clamp(0, (0.5 - l) * 9999, 1) 0 0);
+  --color-secondary-content: oklch(from var(--color-secondary) clamp(0, (0.5 - l) * 9999, 1) 0 0);
+}
+
+/* ─────────────────────────────────────────────────
    Design Tokens
    Semantic variables for consistent visual rhythm.
    ───────────────────────────────────────────────── */
