@@ -1,11 +1,16 @@
 ---
 import { getHeroSection } from "./api/hero.api";
 import { mapHeroSection } from "./hero.mapper";
+import { getCallForPapers } from "../call-for-papers/api/call-for-papers.api";
+import { mapCallForPapers } from "../call-for-papers/call-for-papers.mapper";
 import Calendar from "lucide-astro/Calendar";
 
 const raw = await getHeroSection();
 if (!raw) return;
 const hero = mapHeroSection(raw);
+
+const rawCfp = await getCallForPapers();
+const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
 ---
 <section class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8" class:list={[!hero.backgroundImage && "bg-base-100"]}>
   {hero.backgroundImage && (
@@ -41,8 +46,15 @@ const hero = mapHeroSection(raw);
       {hero.description}
     </p>
 
-    <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base font-bold shadow-lg shadow-primary/20">
-      {hero.ticketCtaText}
-    </a>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base font-bold shadow-lg shadow-primary/20">
+        {hero.ticketCtaText}
+      </a>
+      {cfp?.active && (
+        <a href={cfp.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg px-10 text-base font-semibold">
+          {cfp.ctaText}
+        </a>
+      )}
+    </div>
   </div>
 </section>
