@@ -1,0 +1,28 @@
+---
+import { LANGUAGES } from "#/core/constants/language.constants";
+import type { LanguageCode } from "@content-island/api-client";
+import Layout from "#/layouts/layout.astro";
+import HeroPod from "#/pods/hero/hero.pod.astro";
+import InfoBarPod from "#/pods/info-bar/info-bar.pod.astro";
+import StatsBarPod from "#/pods/stats-bar/stats-bar.pod.astro";
+import SpeakersPod from "#/pods/speakers/speakers.pod.astro";
+import SchedulePod from "#/pods/schedule/schedule.pod.astro";
+import SponsorsPod from "#/pods/sponsors/sponsors.pod.astro";
+import FAQPod from "#/pods/faq/faq.pod.astro";
+
+export async function getStaticPaths() {
+  return LANGUAGES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: LanguageCode };
+---
+
+<Layout lang={lang}>
+  <HeroPod lang={lang} />
+  <InfoBarPod lang={lang} />
+  <StatsBarPod lang={lang} />
+  <SpeakersPod lang={lang} />
+  <SchedulePod lang={lang} />
+  <SponsorsPod lang={lang} />
+  <FAQPod lang={lang} />
+</Layout>

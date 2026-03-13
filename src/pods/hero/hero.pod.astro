@@ -3,13 +3,19 @@ import { getHeroSection } from "./api/hero.api";
 import { mapHeroSection } from "./hero.mapper";
 import { getCallForPapers } from "../call-for-papers/api/call-for-papers.api";
 import { mapCallForPapers } from "../call-for-papers/call-for-papers.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import Calendar from "lucide-astro/Calendar";
 
-const raw = await getHeroSection();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getHeroSection(lang);
 if (!raw) return;
 const hero = mapHeroSection(raw);
 
-const rawCfp = await getCallForPapers();
+const rawCfp = await getCallForPapers(lang);
 const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
 ---
 <section class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8" class:list={[!hero.backgroundImage && "bg-base-100"]}>

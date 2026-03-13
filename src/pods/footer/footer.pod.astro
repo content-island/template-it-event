@@ -3,10 +3,25 @@ import { getFooter } from "./api/footer.api";
 import { mapFooter } from "./footer.mapper";
 import { getPrivacyPolicy } from "#/pods/privacy-policy/api/privacy-policy.api";
 import { getCookies } from "#/pods/cookies/api/cookies.api";
+import { LANGUAGES, LANGUAGE_NAMES } from "#/core/constants/language.constants";
+import type { LanguageCode } from "@content-island/api-client";
 import SocialIcon from "#shared/components/social-icon.astro";
 
-const [raw, privacyPolicy, cookies] = await Promise.all([getFooter(), getPrivacyPolicy(), getCookies()]);
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const [raw, privacyPolicy, cookies] = await Promise.all([
+  getFooter(lang),
+  getPrivacyPolicy(lang),
+  getCookies(lang),
+]);
 const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
+
+const currentPath = Astro.url.pathname;
+const [, ...pathSegments] = currentPath.split("/").filter(Boolean);
+const currentSlug = pathSegments.join("/");
 ---
 <footer class="bg-base-300/50 border-t border-base-300/40 py-12 px-6">
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -14,7 +29,7 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
       <p class="text-faint text-center sm:text-left">{footer.text}</p>
       {privacyPolicy && (
         <a
-          href={`/${privacyPolicy.slug}`}
+          href={`/${lang}/${privacyPolicy.slug}`}
           class="text-subtle hover:text-primary transition-colors duration-200 underline-offset-4 hover:underline"
         >
           Privacy Policy
@@ -22,27 +37,58 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
       )}
       {cookies && (
         <a
-          href={`/${cookies.slug}`}
+          href={`/${lang}/${cookies.slug}`}
           class="text-subtle hover:text-primary transition-colors duration-200 underline-offset-4 hover:underline"
         >
           Cookies
         </a>
       )}
     </div>
-    {footer.socialLinks.length > 0 && (
-      <div class="flex items-center gap-4">
-        {footer.socialLinks.map((link) => (
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={link.tag}
-            class="inline-flex text-subtle hover:text-primary transition-colors duration-200"
-          >
-            <SocialIcon tag={link.tag} size={20} class="pointer-events-none" />
-          </a>
-        ))}
-      </div>
-    )}
+
+    <div class="flex items-center gap-4">
+      {footer.socialLinks.length > 0 && (
+        <div class="flex items-center gap-4">
+          {footer.socialLinks.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.tag}
+              class="inline-flex text-subtle hover:text-primary transition-colors duration-200"
+            >
+              <SocialIcon tag={link.tag} size={20} class="pointer-events-none" />
+            </a>
+          ))}
+        </div>
+      )}
+
+      {LANGUAGES.length > 1 && (
+        <select
+          id="language-select"
+          aria-label="Select language"
+          class="select select-sm bg-base border-base-content/20 text-subtle hover:border-primary focus:border-primary focus:outline-none cursor-pointer text-xs font-medium min-w-24 transition-colors duration-200"
+        >
+          {LANGUAGES.map((language) => {
+            const slugPart = currentSlug ? `/${currentSlug}` : "/";
+            const value = `/${language}${slugPart}`;
+            return (
+              <option value={value} selected={lang === language}>
+                {LANGUAGE_NAMES[language] ?? language.toUpperCase()}
+              </option>
+            );
+          })}
+        </select>
+      )}
+    </div>
   </div>
 </footer>
+
+<script>
+  const languageSelect = document.getElementById("language-select") as HTMLSelectElement;
+  if (languageSelect) {
+    languageSelect.addEventListener("change", (event) => {
+      const target = event.target as HTMLSelectElement;
+      window.location.href = target.value;
+    });
+  }
+</script>
