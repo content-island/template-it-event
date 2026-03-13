@@ -1,25 +1,37 @@
 ---
 import { getHeader } from "./api/header.api";
 import { mapHeader } from "./header.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import NavItem from "./components/nav-item.astro";
 import Menu from "lucide-astro/Menu";
 import Sun from "lucide-astro/Sun";
 import Moon from "lucide-astro/Moon";
 
-const raw = await getHeader();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getHeader(lang);
 if (!raw) return;
 const header = mapHeader(raw);
+
+function resolveNavUrl(url: string): string {
+  if (url.startsWith("#")) return url;
+  if (url.startsWith("/")) return `/${lang}${url}`;
+  return url;
+}
 ---
 <header class="navbar bg-base-200/80 backdrop-blur-lg px-6 lg:px-8 sticky top-0 z-50 border-b border-base-300/60 min-h-16">
   <div class="navbar-start">
-    <a href="/" class="text-xl text-base-content font-(--font-title) tracking-tight">
+    <a href={`/${lang}/`} class="text-xl text-base-content font-(--font-title) tracking-tight">
       {header.eventName}
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1 gap-2">
       {header.navigationItems.map((item) => (
-        <NavItem label={item.label} url={item.url} />
+        <NavItem label={item.label} url={resolveNavUrl(item.url)} />
       ))}
     </ul>
   </div>
@@ -41,7 +53,7 @@ const header = mapHeader(raw);
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 z-10 mt-3 p-4 shadow-lg w-full fixed left-0 right-0 rounded-none border-b border-base-300/60">
         {header.navigationItems.map((item) => (
-          <NavItem label={item.label} url={item.url} />
+          <NavItem label={item.label} url={resolveNavUrl(item.url)} />
         ))}
       </ul>
     </div>

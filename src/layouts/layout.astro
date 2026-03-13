@@ -3,14 +3,20 @@ import "../styles/global.css";
 import { getLayoutData } from "#layouts/layout-data";
 import { buildThemeCSS } from "#/lib/theme-css";
 import { Theme } from "#/pods/theme/theme.model";
+import type { LanguageCode } from "@content-island/api-client";
 import HeaderPod from "#/pods/header/header.pod.astro";
 import FooterPod from "#/pods/footer/footer.pod.astro";
 import CookieBannerPod from "#/pods/cookie-banner/cookie-banner.pod.astro";
 
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
 const { theme, general, fonts } = await getLayoutData();
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,11 +37,11 @@ const { theme, general, fonts } = await getLayoutData();
     <title>Event</title>
   </head>
   <body class="bg-base-100 text-base-content min-h-screen">
-    <HeaderPod />
+    <HeaderPod lang={lang} />
     <main>
       <slot />
     </main>
-    <FooterPod />
-    <CookieBannerPod />
+    <FooterPod lang={lang} />
+    <CookieBannerPod lang={lang} />
   </body>
 </html>
