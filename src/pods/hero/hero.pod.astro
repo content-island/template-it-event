@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getHeroSection } from "./api/hero.api";
 import { mapHeroSection } from "./hero.mapper";
 import { getCallForPapers } from "../call-for-papers/api/call-for-papers.api";
@@ -15,12 +16,15 @@ const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
 <section class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8" class:list={[!hero.backgroundImage && "bg-base-100"]}>
   {hero.backgroundImage && (
     <>
-      <img
+      <Image
         src={hero.backgroundImage}
         alt=""
         aria-hidden="true"
+        width={1920}
+        height={1080}
         class="absolute inset-0 w-full h-full object-cover blur-xs"
         loading="eager"
+        fetchpriority="high"
       />
       <div class="absolute inset-0 bg-black/55"></div>
     </>
@@ -47,7 +51,7 @@ const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4">
-      <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base shadow-lg shadow-primary/30">
+      <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base shadow-lg shadow-secondary/30">
         {hero.ticketCtaText}
       </a>
       {cfp?.active && (
