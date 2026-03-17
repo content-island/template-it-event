@@ -15,7 +15,7 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
       {privacyPolicy && (
         <a
           href={`/${privacyPolicy.slug}`}
-          class="text-subtle hover:text-secondary transition-colors duration-200 underline-offset-4 hover:underline"
+          class="text-subtle hover:text-primary transition-colors duration-200 underline-offset-4 hover:underline"
         >
           Privacy Policy
         </a>
@@ -23,7 +23,7 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
       {cookies && (
         <a
           href={`/${cookies.slug}`}
-          class="text-subtle hover:text-secondary transition-colors duration-200 underline-offset-4 hover:underline"
+          class="text-subtle hover:text-primary transition-colors duration-200 underline-offset-4 hover:underline"
         >
           Cookies
         </a>
@@ -37,7 +37,7 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.tag}
-            class="inline-flex text-subtle hover:text-secondary transition-colors duration-200"
+            class="inline-flex text-subtle hover:text-primary transition-colors duration-200"
           >
             <SocialIcon tag={link.tag} size={20} class="pointer-events-none" />
           </a>

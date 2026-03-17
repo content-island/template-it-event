@@ -121,7 +121,7 @@
 /* Card with hover border lift — standard interactive cards */
 @utility card-interactive {
   @apply bg-base-200 border border-base-300/40 rounded-lg
-         hover:border-primary/30 transition-all duration-300;
+         hover:border-secondary/30 transition-all duration-300;
 }
 
 /* Slightly elevated surface (base-300 tint) — e.g. FAQ, stats bg */
@@ -148,11 +148,21 @@
    ───────────────────────────────────────────────── */
 
 @utility btn {
-  @apply border-none rounded;
+  @apply border-none rounded font-semibold;
+}
+
+@utility btn-primary {
+  @apply bg-(--color-primary) text-(--color-primary-content) hover:bg-(--color-primary-300);
 }
 
 @utility btn-secondary {
-  @apply btn text-(--color-primary-800);
+  @apply bg-(--color-secondary) text-(--color-secondary-content) hover:bg-(--color-secondary-200);
+}
+
+@utility btn-ghost {
+  @apply bg-transparent border border-base-300/50 text-base-content/70
+         hover:border-secondary/10 hover:text-base-content
+         transition-all duration-200;
 }
 
 /* ─────────────────────────────────────────────────

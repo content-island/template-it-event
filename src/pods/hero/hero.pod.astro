@@ -47,11 +47,11 @@ const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4">
-      <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base font-bold shadow-lg shadow-primary/20">
+      <a href={hero.ticketCtaUrl} class="btn btn-secondary btn-lg px-12 text-base shadow-lg shadow-primary/30">
         {hero.ticketCtaText}
       </a>
       {cfp?.active && (
-        <a href={cfp.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg px-10 text-base font-semibold">
+        <a href={cfp.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg px-10 text-base">
           {cfp.ctaText}
         </a>
       )}
