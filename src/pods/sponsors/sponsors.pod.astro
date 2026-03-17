@@ -55,10 +55,10 @@ const sponsorsByTier = tiers.reduce((acc, tier) => {
   return acc;
 }, {} as Record<SponsorTier, typeof section.sponsors>);
 ---
-<section id="sponsors" class="section-padding px-6 bg-base-200/30">
+<section id="sponsors" aria-labelledby="sponsors-title" class="section-padding px-6 bg-base-200/30">
   <div class="section-container">
     <div class="section-header">
-      <h2 class="section-title md:text-5xl">{section.title}</h2>
+      <h2 id="sponsors-title" class="section-title md:text-5xl">{section.title}</h2>
       {section.description && (
         <p class="section-description max-w-2xl mx-auto">{section.description}</p>
       )}

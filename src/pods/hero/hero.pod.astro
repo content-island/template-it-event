@@ -13,7 +13,7 @@ const hero = mapHeroSection(raw);
 const rawCfp = await getCallForPapers();
 const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
 ---
-<section class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8" class:list={[!hero.backgroundImage && "bg-base-100"]}>
+<section aria-labelledby="hero-title" class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8" class:list={[!hero.backgroundImage && "bg-base-100"]}>
   {hero.backgroundImage && (
     <>
       <Image
@@ -35,7 +35,7 @@ const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
   </div>
 
   <div class="relative max-w-4xl mx-auto text-center">
-    <h1 class:list={["text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] mb-8 font-(--font-title) tracking-tight", hero.backgroundImage ? "text-white" : "text-base-content"]}>
+    <h1 id="hero-title" class:list={["text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] mb-8 font-(--font-title) tracking-tight", hero.backgroundImage ? "text-white" : "text-base-content"]}>
       {hero.title}
     </h1>
 

@@ -7,10 +7,10 @@ const raw = await getSpeakersSection();
 if (!raw) return;
 const section = mapSpeakersSection(raw);
 ---
-<section id="speakers" class="section-padding px-6">
+<section id="speakers" class="section-padding px-6" aria-labelledby="speakers-title">
   <div class="section-container">
     <div class="section-header">
-      <h2 class="section-title md:text-5xl">{section.title}</h2>
+      <h2 id="speakers-title" class="section-title md:text-5xl">{section.title}</h2>
     </div>
     {/* Mobile: horizontal slider */}
     <div class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth lg:hidden
