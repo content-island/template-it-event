@@ -7,10 +7,10 @@ const raw = await getFaqSection();
 if (!raw) return;
 const section = mapFaqSection(raw);
 ---
-<section id="faq" class="section-padding bg-base-200/50">
+<section id="faq" aria-labelledby="faq-title" class="section-padding bg-base-200/50">
   <div class="max-w-3xl mx-auto px-6">
     <div class="section-header">
-      <h2 class="section-title md:text-5xl">{section.title}</h2>
+      <h2 id="faq-title" class="section-title md:text-5xl">{section.title}</h2>
       {section.description && (
         <p class="section-description max-w-2xl mx-auto">{section.description}</p>
       )}
