@@ -1,9 +1,15 @@
 ---
 import { getScheduleSection } from "./api/schedule.api";
 import { mapScheduleSection } from "./schedule.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import ScheduleItemComponent from "./components/schedule-item.astro";
 
-const raw = await getScheduleSection();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getScheduleSection(lang);
 if (!raw) return;
 const section = mapScheduleSection(raw);
 ---

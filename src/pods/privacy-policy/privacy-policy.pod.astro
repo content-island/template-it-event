@@ -2,8 +2,14 @@
 import { getPrivacyPolicy } from "./api/privacy-policy.api";
 import { mapPrivacyPolicy } from "./privacy-policy.mapper";
 import { parseMarkdown } from "#/lib/markdown";
+import type { LanguageCode } from "@content-island/api-client";
 
-const raw = await getPrivacyPolicy();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getPrivacyPolicy(lang);
 if (!raw) return;
 const { text } = mapPrivacyPolicy(raw);
 const htmlContent = await parseMarkdown(text);

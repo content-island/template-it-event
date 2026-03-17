@@ -1,0 +1,21 @@
+---
+import { LANGUAGES } from "#/core/constants/language.constants";
+import type { LanguageCode } from "@content-island/api-client";
+import Layout from "#/layouts/layout.astro";
+import PrivacyPolicyPod from "#/pods/privacy-policy/privacy-policy.pod.astro";
+import CookiesPod from "#/pods/cookies/cookies.pod.astro";
+
+export async function getStaticPaths() {
+  return LANGUAGES.flatMap((lang) => [
+    { params: { lang, slug: "privacy-policy" } },
+    { params: { lang, slug: "cookies" } },
+  ]);
+}
+
+const { lang, slug } = Astro.params as { lang: LanguageCode; slug: string };
+---
+
+<Layout lang={lang}>
+  {slug === "privacy-policy" && <PrivacyPolicyPod lang={lang} />}
+  {slug === "cookies" && <CookiesPod lang={lang} />}
+</Layout>
