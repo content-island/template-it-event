@@ -120,13 +120,13 @@
 
 /* Card with hover border lift — standard interactive cards */
 @utility card-interactive {
-  @apply bg-base-200 border border-base-300/40 rounded-lg
-         hover:border-secondary/30 transition-all duration-300;
+  @apply bg-base-200 border border-base-300 rounded-xl
+         hover:border-primary/30 transition-all duration-300;
 }
 
 /* Slightly elevated surface (base-300 tint) — e.g. FAQ, stats bg */
 @utility card-elevated {
-  @apply bg-base-300/30 border border-base-300/40 rounded-lg
+  @apply bg-base-300/30 border border-base-300/40 rounded-xl
          hover:border-primary/30 transition-all duration-300;
 }
 
