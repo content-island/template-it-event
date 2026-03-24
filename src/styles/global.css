@@ -141,7 +141,7 @@
 
 /* Card with hover border lift — standard interactive cards */
 @utility card-interactive {
-  @apply bg-base-200 border border-base-300 rounded-xl
+  @apply bg-base-200 border border-base-300 rounded-3xl
          hover:border-primary/30 transition-all duration-300;
 }
 
