@@ -10,8 +10,8 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
 ---
 <footer class="bg-base-300/50 border-t border-base-300/40 py-8 px-6">
   <div class="max-w-4xl mx-auto flex flex-col gap-8">
-    <div class="flex items-center justify-between">
-      <div class="flex gap-6 text-sm">
+    <div class="flex flex-col sm:flex-row items-center justify-between w-full gap-6">
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 items-center text-sm">
         {privacyPolicy && (
           <a
             href={`/${privacyPolicy.slug}`}
@@ -45,6 +45,7 @@ const footer = raw ? mapFooter(raw) : { text: "", socialLinks: [] };
         </div>
       )}
     </div>
+
     <p class="text-center text-faint text-sm">{footer.text}</p>
   </div>
 </footer>
