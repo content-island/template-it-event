@@ -7,7 +7,8 @@ export interface SponsorItemApiModel {
   language: 'en';
   lastUpdate: string;
   name: string;
-  logo?: Media;
+  logoDark?: Media;
+  logoLight?: Media;
   websiteUrl: string;
   tier: SponsorTierApiModel;
 }

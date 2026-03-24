@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { SponsorItemModel } from "../sponsors.model";
 
 interface Props {
@@ -22,12 +23,33 @@ const { sponsor, cardBorder, cardPadding, logoMaxH, cardWidth } = Astro.props;
   ]}
   title={sponsor.name}
 >
-  {sponsor.logoUrl ? (
-    <img
-      src={sponsor.logoUrl}
-      alt={sponsor.name}
-      class:list={["max-w-full object-contain grayscale-25 group-hover:grayscale-0 transition-all duration-300", logoMaxH]}
-    />
+  {(sponsor.logoDarkUrl || sponsor.logoLightUrl) ? (
+    <>
+      {sponsor.logoLightUrl && (
+        <Image
+          src={sponsor.logoLightUrl}
+          alt={sponsor.name}
+          inferSize
+          class:list={[
+            "max-w-full object-contain grayscale-25 group-hover:grayscale-0 transition-all duration-300",
+            logoMaxH,
+            sponsor.logoDarkUrl ? "dark:hidden" : "",
+          ]}
+        />
+      )}
+      {sponsor.logoDarkUrl && (
+        <Image
+          src={sponsor.logoDarkUrl}
+          alt={sponsor.name}
+          inferSize
+          class:list={[
+            "max-w-full object-contain grayscale-25 group-hover:grayscale-0 transition-all duration-300",
+            logoMaxH,
+            sponsor.logoLightUrl ? "hidden dark:block" : "",
+          ]}
+        />
+      )}
+    </>
   ) : (
     <span class="text-subtle font-semibold group-hover:text-primary transition-colors duration-200 text-sm text-center">
       {sponsor.name}

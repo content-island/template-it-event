@@ -8,7 +8,8 @@ export function mapSponsorsSection(api: SponsorsSectionApiModel): SponsorsSectio
     sponsors: (api.SponsorItems ?? []).map((s) => ({
       id: s.id,
       name: s.name,
-      logoUrl: s.logo?.url,
+      logoDarkUrl: s.logoDark?.url,
+      logoLightUrl: s.logoLight?.url,
       websiteUrl: s.websiteUrl,
       tier: s.tier,
     })),
