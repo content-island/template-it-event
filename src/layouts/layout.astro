@@ -10,9 +10,10 @@ import CookieBannerPod from "#/pods/cookie-banner/cookie-banner.pod.astro";
 
 interface Props {
   lang: LanguageCode;
+  isLandingPage?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, isLandingPage } = Astro.props;
 const { theme, general, fonts } = await getLayoutData();
 ---
 <!doctype html>
@@ -37,7 +38,7 @@ const { theme, general, fonts } = await getLayoutData();
     <title>Event</title>
   </head>
   <body class="bg-base-100 text-base-content min-h-screen">
-    <HeaderPod lang={lang} />
+    { isLandingPage && <HeaderPod lang={lang} /> }
     <main>
       <slot />
     </main>

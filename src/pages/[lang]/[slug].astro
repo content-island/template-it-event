@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { lang, slug } = Astro.params as { lang: LanguageCode; slug: string };
 ---
 
-<Layout lang={lang}>
+<Layout lang={lang} isLandingPage={false}>
   {slug === "privacy-policy" && <PrivacyPolicyPod lang={lang} />}
   {slug === "cookies" && <CookiesPod lang={lang} />}
 </Layout>
