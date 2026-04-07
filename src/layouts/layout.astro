@@ -38,7 +38,7 @@ const { theme, general, fonts } = await getLayoutData();
     <title>Event</title>
   </head>
   <body class="bg-base-100 text-base-content min-h-screen">
-    { isLandingPage && <HeaderPod lang={lang} /> }
+    <HeaderPod lang={lang} isLandingPage={isLandingPage} />
     <main>
       <slot />
     </main>

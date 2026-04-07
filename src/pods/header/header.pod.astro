@@ -9,9 +9,10 @@ import Moon from "lucide-astro/Moon";
 
 interface Props {
   lang: LanguageCode;
+  isLandingPage?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, isLandingPage } = Astro.props;
 const raw = await getHeader(lang);
 if (!raw) return;
 const header = mapHeader(raw);
@@ -28,13 +29,13 @@ function resolveNavUrl(url: string): string {
       {header.eventName}
     </a>
   </div>
-  <div class="navbar-center hidden lg:flex">
+  {isLandingPage && <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1 gap-2">
       {header.navigationItems.map((item) => (
         <NavItem label={item.label} url={resolveNavUrl(item.url)} />
       ))}
     </ul>
-  </div>
+  </div>}
   <div class="navbar-end gap-2">
     <button
       id="theme-toggle"
