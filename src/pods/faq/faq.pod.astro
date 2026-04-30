@@ -1,9 +1,15 @@
 ---
 import { getFaqSection } from "./api/faq.api";
 import { mapFaqSection } from "./faq.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import FAQItem from "./components/faq-item.astro";
 
-const raw = await getFaqSection();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getFaqSection(lang);
 if (!raw) return;
 const section = mapFaqSection(raw);
 ---

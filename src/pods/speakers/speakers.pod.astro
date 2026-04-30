@@ -1,9 +1,15 @@
 ---
 import { getSpeakersSection } from "./api/speakers.api";
 import { mapSpeakersSection } from "./speakers.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import SpeakerCard from "./components/speaker-card.astro";
 
-const raw = await getSpeakersSection();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getSpeakersSection(lang);
 if (!raw) return;
 const section = mapSpeakersSection(raw);
 ---

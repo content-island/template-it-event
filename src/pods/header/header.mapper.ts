@@ -6,7 +6,7 @@ export function mapHeader(api: HeaderApiModel): HeaderModel {
     eventName: api.eventName,
     navigationItems: (api.NavigationItems ?? []).map((item) => ({
       label: item.label,
-      url: item.url.startsWith("#") ? `/${item.url}` : item.url,
+      url: item.url,
     })),
     ctaText: api.ctaText,
     ctaUrl: api.ctaUrl,

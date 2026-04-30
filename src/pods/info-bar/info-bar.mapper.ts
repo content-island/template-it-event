@@ -17,5 +17,7 @@ export function mapInfoBar(api: InfoBarApiModel): InfoBarModel {
         })
       : "#",
     shareLinkUrl: api.shareLinkUrl,
+    addToCalendarText: api.addToCalendarText,
+    shareText: api.shareText,
   };
 }

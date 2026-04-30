@@ -1,9 +1,15 @@
 ---
 import { getStatsBar } from "./api/stats-bar.api";
 import { mapStatsBar } from "./stats-bar.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import StatItem from "./components/stat-item.astro";
 
-const raw = await getStatsBar();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getStatsBar(lang);
 if (!raw) return;
 const statsBar = mapStatsBar(raw);
 ---

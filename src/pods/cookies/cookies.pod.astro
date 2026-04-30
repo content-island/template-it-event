@@ -2,8 +2,14 @@
 import { getCookies } from "./api/cookies.api";
 import { mapCookies } from "./cookies.mapper";
 import { parseMarkdown } from "#/lib/markdown";
+import type { LanguageCode } from "@content-island/api-client";
 
-const raw = await getCookies();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getCookies(lang);
 if (!raw) return;
 const { text } = mapCookies(raw);
 const htmlContent = await parseMarkdown(text);

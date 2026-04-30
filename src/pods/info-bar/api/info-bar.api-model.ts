@@ -1,6 +1,5 @@
 export interface InfoBarApiModel {
   id: string;
-  language: 'en';
   lastUpdate: string;
   venueName: string;
   venueLocation: string;
@@ -10,4 +9,6 @@ export interface InfoBarApiModel {
   timezone: string; // IANA timezone, e.g. "Europe/Madrid"
   eventDescription?: string;
   shareLinkUrl: string;
+  addToCalendarText: string;
+  shareText: string;
 }

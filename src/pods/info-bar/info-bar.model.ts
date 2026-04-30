@@ -3,4 +3,6 @@ export interface InfoBarModel {
   venueLocation: string;
   addToCalendarUrl: string;
   shareLinkUrl: string;
+  addToCalendarText: string;
+  shareText: string;
 }

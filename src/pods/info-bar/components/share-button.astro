@@ -3,19 +3,21 @@ import Share2 from "lucide-astro/Share2";
 import Check from "lucide-astro/Check";
 
 interface Props {
+  shareText: string;
   url: string;
 }
 
-const { url } = Astro.props;
+const { shareText, url } = Astro.props;
 ---
 <button
   id="share-btn"
   data-url={url}
+  data-share-text={shareText}
   class="btn btn-xs btn-ghost text-subtle gap-1.5 transition-all duration-300 w-[5.5rem] justify-center"
 >
   <span id="share-icon"><Share2 size={14} /></span>
   <span id="share-check" class="hidden"><Check size={14} /></span>
-  <span id="share-label">Share</span>
+  <span id="share-label">{shareText}</span>
 </button>
 
 <div id="share-toast" class="toast toast-end toast-bottom z-50 hidden">
@@ -31,6 +33,7 @@ const { url } = Astro.props;
   const icon = document.getElementById("share-icon");
   const check = document.getElementById("share-check");
   const label = document.getElementById("share-label");
+  const shareText = (btn as HTMLElement)?.dataset.shareText;
 
   let resetTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -52,7 +55,7 @@ const { url } = Astro.props;
       btn.classList.add("btn-ghost", "text-subtle");
       icon?.classList.remove("hidden");
       check?.classList.add("hidden");
-      if (label) label.textContent = "Share";
+      if (label) label.textContent = shareText || "";
       toast?.classList.add("hidden");
     }, 2500);
   });

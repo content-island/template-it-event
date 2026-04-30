@@ -1,11 +1,17 @@
 ---
 import { getInfoBar } from "./api/info-bar.api";
 import { mapInfoBar } from "./info-bar.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import MapPin from "lucide-astro/MapPin";
 import AddToCalendarButton from "./components/add-to-calendar-button.astro";
 import ShareButton from "./components/share-button.astro";
 
-const raw = await getInfoBar();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getInfoBar(lang);
 if (!raw) return;
 const infoBar = mapInfoBar(raw);
 ---
@@ -19,8 +25,8 @@ const infoBar = mapInfoBar(raw);
       </div>
     </div>
     <div class="flex items-center gap-2 shrink-0">
-      <AddToCalendarButton href={infoBar.addToCalendarUrl} />
-      <ShareButton url={infoBar.shareLinkUrl} />
+      <AddToCalendarButton addToCalendarText={infoBar.addToCalendarText} href={infoBar.addToCalendarUrl} />
+      <ShareButton shareText={infoBar.shareText} url={infoBar.shareLinkUrl} />
     </div>
   </div>
 </div>

@@ -1,19 +1,22 @@
 import { client } from "#/lib/client";
+import type { LanguageCode } from "@content-island/api-client";
 import type {
   SpeakerItemApiModel,
   SpeakersSectionApiModel,
   SpeakersSectionRawApiModel,
 } from "./speakers.api-model";
 
-export async function getSpeakersSection(): Promise<SpeakersSectionApiModel | null> {
+export async function getSpeakersSection(language: LanguageCode): Promise<SpeakersSectionApiModel | null> {
   try {
     const [sections, speakerItems] = await Promise.all([
       client.getContentList<SpeakersSectionRawApiModel>({
         contentType: "SpeakersSection",
+        language,
         includeRelatedContent: true,
       }),
       client.getContentList<SpeakerItemApiModel>({
         contentType: "SpeakerItem",
+        language,
         includeRelatedContent: true,
       }),
     ]);

@@ -2,12 +2,18 @@
 import { getCookieBanner } from "./api/cookie-banner.api";
 import { mapCookieBanner } from "./cookie-banner.mapper";
 import { getCookies } from "#/pods/cookies/api/cookies.api";
+import type { LanguageCode } from "@content-island/api-client";
 
-const [raw, cookiesPage] = await Promise.all([getCookieBanner(), getCookies()]);
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const [raw, cookiesPage] = await Promise.all([getCookieBanner(lang), getCookies(lang)]);
 if (!raw) return;
 
 const banner = mapCookieBanner(raw);
-const cookiesUrl = cookiesPage ? `/${cookiesPage.slug}` : "/cookies";
+const cookiesUrl = cookiesPage ? `/${lang}/${cookiesPage.slug}` : `/${lang}/cookies`;
 ---
 
 <div

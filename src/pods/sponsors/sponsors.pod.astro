@@ -1,10 +1,16 @@
 ---
 import { getSponsorsSection } from "./api/sponsors.api";
 import { mapSponsorsSection } from "./sponsors.mapper";
+import type { LanguageCode } from "@content-island/api-client";
 import SponsorLogo from "./components/sponsor-logo.astro";
 import type { SponsorTier } from "./sponsors.model";
 
-const raw = await getSponsorsSection();
+interface Props {
+  lang: LanguageCode;
+}
+
+const { lang } = Astro.props;
+const raw = await getSponsorsSection(lang);
 if (!raw) return;
 const section = mapSponsorsSection(raw);
 
