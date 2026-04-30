@@ -7,6 +7,13 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  image: {
+    remotePatterns: [
+      { 
+        protocol: "https" 
+      }
+    ],
+  },
   env: {
     schema: {
       CONTENT_ISLAND_ACCESS_TOKEN: envField.string({

@@ -38,6 +38,35 @@
 }
 
 /* ─────────────────────────────────────────────────
+   Theme variants
+   ───────────────────────────────────────────────── */
+   
+@custom-variant dark {
+  [data-theme="event-template"] & {
+    @slot;
+  }
+}
+
+@custom-variant light {
+  [data-theme="event-template-light"] & {
+    @slot;
+  }
+}
+
+/* ─────────────────────────────────────────────────
+   Dynamic content colors
+   Computed reactively from the primary/secondary CSS vars.
+   If primary/secondary is dark (oklch l < 0.5) → content = white; else → black.
+   ───────────────────────────────────────────────── */
+
+[data-theme="event-template"],
+[data-theme="event-template-light"] {
+  --color-primary-content: oklch(from var(--color-primary) clamp(0, (0.5 - l) * 9999, 1) 0 0);
+  --color-secondary-content: oklch(from var(--color-secondary) clamp(0, (0.5 - l) * 9999, 1) 0 0);
+  --color-primary-contrast: oklch(from var(--color-primary) 0.50 c h);
+}
+
+/* ─────────────────────────────────────────────────
    Design Tokens
    Semantic variables for consistent visual rhythm.
    ───────────────────────────────────────────────── */
@@ -97,6 +126,10 @@
   @apply text-base-content/40;
 }
 
+@utility text-primary-contrast {
+  color: var(--color-primary-contrast);
+}
+
 /* ─────────────────────────────────────────────────
    Card / Surface utilities
    ───────────────────────────────────────────────── */
@@ -108,13 +141,13 @@
 
 /* Card with hover border lift — standard interactive cards */
 @utility card-interactive {
-  @apply bg-base-200 border border-base-300/40 rounded-lg
+  @apply bg-base-200 border border-base-300 rounded-3xl
          hover:border-primary/30 transition-all duration-300;
 }
 
 /* Slightly elevated surface (base-300 tint) — e.g. FAQ, stats bg */
 @utility card-elevated {
-  @apply bg-base-300/30 border border-base-300/40 rounded-lg
+  @apply bg-base-300/30 border border-base-300/40 rounded-xl
          hover:border-primary/30 transition-all duration-300;
 }
 
@@ -136,11 +169,21 @@
    ───────────────────────────────────────────────── */
 
 @utility btn {
-  @apply border-none rounded;
+  @apply border-none rounded font-semibold;
+}
+
+@utility btn-primary {
+  @apply bg-(--color-primary) text-(--color-primary-content) hover:bg-(--color-primary-300);
 }
 
 @utility btn-secondary {
-  @apply btn text-(--color-primary-800);
+  @apply bg-(--color-secondary) text-(--color-secondary-content) hover:bg-(--color-secondary-200);
+}
+
+@utility btn-ghost {
+  @apply bg-transparent border border-base-300/50 text-base-content/70
+         hover:border-secondary/10 hover:text-base-content
+         transition-all duration-200;
 }
 
 /* ─────────────────────────────────────────────────
