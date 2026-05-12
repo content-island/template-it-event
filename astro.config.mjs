@@ -9,9 +9,9 @@ export default defineConfig({
   },
   image: {
     remotePatterns: [
-      { 
-        protocol: "https" 
-      }
+      {
+        protocol: "https",
+      },
     ],
   },
   env: {
@@ -23,5 +23,8 @@ export default defineConfig({
         default: "INFORM_VALID_TOKEN",
       }),
     },
+  },
+  server: {
+    port: 3000,
   },
 });

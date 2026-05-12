@@ -3,7 +3,9 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: ["event-template", "event-template-light"];
+  themes:
+    [ "event-template",
+    "event-template-light"];
 }
 
 @plugin "daisyui/theme" {
@@ -40,7 +42,7 @@
 /* ─────────────────────────────────────────────────
    Theme variants
    ───────────────────────────────────────────────── */
-   
+
 @custom-variant dark {
   [data-theme="event-template"] & {
     @slot;
@@ -61,9 +63,13 @@
 
 [data-theme="event-template"],
 [data-theme="event-template-light"] {
-  --color-primary-content: oklch(from var(--color-primary) clamp(0, (0.5 - l) * 9999, 1) 0 0);
-  --color-secondary-content: oklch(from var(--color-secondary) clamp(0, (0.5 - l) * 9999, 1) 0 0);
-  --color-primary-contrast: oklch(from var(--color-primary) 0.50 c h);
+  --color-primary-content: oklch(
+    from var(--color-primary) clamp(0, (0.5 - l) * 9999, 1) 0 0
+  );
+  --color-secondary-content: oklch(
+    from var(--color-secondary) clamp(0, (0.5 - l) * 9999, 1) 0 0
+  );
+  --color-primary-contrast: oklch(from var(--color-primary) 0.5 c h);
 }
 
 /* ─────────────────────────────────────────────────
@@ -75,12 +81,12 @@
   /* Border opacities — one value per intent */
   --border-subtle: oklch(from var(--color-base-300) l c h / 40%);
   --border-medium: oklch(from var(--color-base-300) l c h / 60%);
-  --border-focus:  oklch(from var(--color-primary)   l c h / 30%);
+  --border-focus: oklch(from var(--color-primary) l c h / 30%);
 
   /* Transition durations */
-  --duration-ui:     200ms;  /* quick feedback: color, opacity */
-  --duration-hover:  300ms;  /* standard: borders, backgrounds */
-  --duration-motion: 500ms;  /* heavier: scale, translate */
+  --duration-ui: 200ms; /* quick feedback: color, opacity */
+  --duration-hover: 300ms; /* standard: borders, backgrounds */
+  --duration-motion: 500ms; /* heavier: scale, translate */
 }
 
 /* ─────────────────────────────────────────────────
@@ -204,7 +210,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

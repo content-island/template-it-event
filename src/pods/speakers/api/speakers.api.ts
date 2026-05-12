@@ -6,7 +6,9 @@ import type {
   SpeakersSectionRawApiModel,
 } from "./speakers.api-model";
 
-export async function getSpeakersSection(language: LanguageCode): Promise<SpeakersSectionApiModel | null> {
+export async function getSpeakersSection(
+  language: LanguageCode,
+): Promise<SpeakersSectionApiModel | null> {
   try {
     const [sections, speakerItems] = await Promise.all([
       client.getContentList<SpeakersSectionRawApiModel>({
@@ -24,12 +26,14 @@ export async function getSpeakersSection(language: LanguageCode): Promise<Speake
     const section = sections[0] ?? null;
     if (!section) return null;
 
-    const speakerItemsMap = new Map(speakerItems.map((item) => [item.id, item]));
+    const speakerItemsMap = new Map(
+      speakerItems.map((item) => [item.id, item]),
+    );
 
     return {
       ...section,
       SpeakersItems: section.SpeakersItems.map(
-        (speaker) => speakerItemsMap.get(speaker.id) ?? speaker
+        (speaker) => speakerItemsMap.get(speaker.id) ?? speaker,
       ),
     };
   } catch {

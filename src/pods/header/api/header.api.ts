@@ -2,7 +2,9 @@ import { client } from "#/lib/client";
 import type { LanguageCode } from "@content-island/api-client";
 import type { HeaderApiModel } from "./header.api-model";
 
-export async function getHeader(language: LanguageCode): Promise<HeaderApiModel | null> {
+export async function getHeader(
+  language: LanguageCode,
+): Promise<HeaderApiModel | null> {
   try {
     const list = await client.getContentList<HeaderApiModel>({
       contentType: "Header",

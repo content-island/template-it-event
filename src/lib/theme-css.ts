@@ -1,6 +1,14 @@
-import { Theme, type ThemeVariantModel, type ThemeModel } from "#/pods/theme/theme.model";
+import {
+  Theme,
+  type ThemeVariantModel,
+  type ThemeModel,
+} from "#/pods/theme/theme.model";
 import { generateColorScaleVars } from "./color-scale";
-import { sanitizeColor, sanitizeHexColor, sanitizeFontFamily } from "./sanitize-css";
+import {
+  sanitizeColor,
+  sanitizeHexColor,
+  sanitizeFontFamily,
+} from "./sanitize-css";
 
 function buildVariantVars(variant: ThemeVariantModel): string {
   const primary = sanitizeHexColor(variant.colorPrimary);

@@ -16,20 +16,23 @@ interface Props {
 const { lang, isLandingPage } = Astro.props;
 const { theme, general, fonts } = await getLayoutData();
 ---
+
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {general?.favicon && <link rel="icon" href={general.favicon.url} />}
-    {fonts.map((font) => (
-      <link rel="stylesheet" href={font.url} />
-    ))}
+    {fonts.map((font) => <link rel="stylesheet" href={font.url} />)}
     {theme && <style set:html={buildThemeCSS(theme)} />}
-    <script is:inline define:vars={{ darkTheme: Theme.Dark, lightTheme: Theme.Light }}>
+    <script
+      is:inline
+      define:vars={{ darkTheme: Theme.Dark, lightTheme: Theme.Light }}
+    >
       (() => {
         const storedTheme = localStorage.getItem("theme");
-        const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches
+        const systemTheme = window.matchMedia("(prefers-color-scheme: light)")
+          .matches
           ? lightTheme
           : darkTheme;
         document.documentElement.dataset.theme = storedTheme ?? systemTheme;

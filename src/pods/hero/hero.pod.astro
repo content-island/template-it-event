@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { getHeroSection } from "./api/hero.api";
 import { mapHeroSection } from "./hero.mapper";
 import { getCallForPapers } from "../call-for-papers/api/call-for-papers.api";
@@ -19,52 +18,93 @@ const hero = mapHeroSection(raw);
 const rawCfp = await getCallForPapers(lang);
 const cfp = rawCfp ? mapCallForPapers(rawCfp) : null;
 ---
-<section aria-labelledby="hero-title" class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8" class:list={[!hero.backgroundImage && "bg-base-100"]}>
-  {hero.backgroundImage && (
-    <>
-      <Image
-        src={hero.backgroundImage}
-        alt=""
-        aria-hidden="true"
-        width={1920}
-        height={1080}
-        class="absolute inset-0 w-full h-full object-cover blur-xs"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <div class="absolute inset-0 bg-black/55"></div>
-    </>
-  )}
+
+<section
+  aria-labelledby="hero-title"
+  class="relative overflow-hidden py-28 md:py-36 px-4 lg:px-8"
+  class:list={[!hero.backgroundImage && "bg-base-100"]}
+>
+  {
+    hero.backgroundImage && (
+      <>
+        <img
+          src={hero.backgroundImage}
+          alt=""
+          aria-hidden="true"
+          width={1920}
+          height={1080}
+          class="absolute inset-0 w-full h-full object-cover blur-xs"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-black/55" />
+      </>
+    )
+  }
   <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-    <div class="absolute -top-32 -left-32 w-lg h-128 rounded-full bg-primary/20 blur-3xl"></div>
-    <div class="absolute -bottom-32 -right-32 w-lg h-128 rounded-full bg-secondary/15 blur-3xl"></div>
+    <div
+      class="absolute -top-32 -left-32 w-lg h-128 rounded-full bg-primary/20 blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute -bottom-32 -right-32 w-lg h-128 rounded-full bg-secondary/15 blur-3xl"
+    >
+    </div>
   </div>
 
   <div class="relative max-w-4xl mx-auto text-center">
-    <h1 id="hero-title" class:list={["text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] mb-8 font-(--font-title) tracking-tight", hero.backgroundImage ? "text-white" : "text-base-content"]}>
+    <h1
+      id="hero-title"
+      class:list={[
+        "text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] mb-8 font-(--font-title) tracking-tight",
+        hero.backgroundImage ? "text-white" : "text-base-content",
+      ]}
+    >
       {hero.title}
     </h1>
 
-    <div class:list={["mb-8 inline-flex items-center gap-2.5 px-4 py-2 rounded-full border text-sm font-medium", hero.backgroundImage ? "border-white/20 bg-white/10 backdrop-blur-sm text-white/80" : "border-base-content/10 bg-base-content/5 text-base-content/70"]}>
+    <div
+      class:list={[
+        "mb-8 inline-flex items-center gap-2.5 px-4 py-2 rounded-full border text-sm font-medium",
+        hero.backgroundImage
+          ? "border-white/20 bg-white/10 backdrop-blur-sm text-white/80"
+          : "border-base-content/10 bg-base-content/5 text-base-content/70",
+      ]}
+    >
       <Calendar size={16} class="shrink-0 opacity-60" />
       <span>{hero.date}</span>
       <span class="opacity-30 mx-0.5">·</span>
       <span>{hero.location}</span>
     </div>
 
-    <p class:list={["text-lg md:text-xl max-w-2xl mx-auto mb-12", hero.backgroundImage ? "text-white/70" : "section-description"]}>
+    <p
+      class:list={[
+        "text-lg md:text-xl max-w-2xl mx-auto mb-12",
+        hero.backgroundImage ? "text-white/70" : "section-description",
+      ]}
+    >
       {hero.description}
     </p>
 
     <div class="flex flex-wrap items-center justify-center gap-4">
-      <a href={hero.ticketCtaUrl} class="btn btn-primary btn-lg px-12 text-base shadow-lg shadow-secondary/30">
+      <a
+        href={hero.ticketCtaUrl}
+        class="btn btn-primary btn-lg px-12 text-base shadow-lg shadow-secondary/30"
+      >
         {hero.ticketCtaText}
       </a>
-      {cfp?.active && (
-        <a href={cfp.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg px-12 text-base">
-          {cfp.ctaText}
-        </a>
-      )}
+      {
+        cfp?.active && (
+          <a
+            href={cfp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary btn-lg px-12 text-base"
+          >
+            {cfp.ctaText}
+          </a>
+        )
+      }
     </div>
   </div>
 </section>
