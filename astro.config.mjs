@@ -9,9 +9,9 @@ export default defineConfig({
   },
   image: {
     remotePatterns: [
-      { 
-        protocol: "https" 
-      }
+      {
+        protocol: "https",
+      },
     ],
   },
   env: {

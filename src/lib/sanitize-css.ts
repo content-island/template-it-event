@@ -16,7 +16,8 @@ const HEX_COLOR_RE = /^#[0-9a-fA-F]{3,8}$/;
  * digits, spaces, commas, dots, slashes, percent signs, and letters
  * (covers rgb, rgba, hsl, hsla, oklch, color, etc.).
  */
-const CSS_COLOR_FN_RE = /^(?:rgb|rgba|hsl|hsla|oklch|hwb|lch|lab|color)\([\d .,/%a-zA-Z]+\)$/;
+const CSS_COLOR_FN_RE =
+  /^(?:rgb|rgba|hsl|hsla|oklch|hwb|lch|lab|color)\([\d .,/%a-zA-Z]+\)$/;
 
 /** Matches CSS named colors — only lowercase ASCII letters. */
 const CSS_NAMED_COLOR_RE = /^[a-z]+$/;
@@ -27,7 +28,11 @@ const CSS_NAMED_COLOR_RE = /^[a-z]+$/;
  */
 export function sanitizeColor(value: string): string {
   const v = value.trim();
-  if (HEX_COLOR_RE.test(v) || CSS_COLOR_FN_RE.test(v) || CSS_NAMED_COLOR_RE.test(v)) {
+  if (
+    HEX_COLOR_RE.test(v) ||
+    CSS_COLOR_FN_RE.test(v) ||
+    CSS_NAMED_COLOR_RE.test(v)
+  ) {
     return v;
   }
   return "transparent";

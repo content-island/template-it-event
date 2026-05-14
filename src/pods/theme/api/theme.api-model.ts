@@ -1,6 +1,6 @@
 export interface ThemeApiModel {
   id: string;
-  language: 'en' | 'es';
+  language: "en" | "es";
   lastUpdate: string;
   name: string;
   isDark: boolean;

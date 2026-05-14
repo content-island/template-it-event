@@ -1,7 +1,9 @@
 import type { SponsorsSectionApiModel } from "./api/sponsors.api-model";
 import type { SponsorsSectionModel } from "./sponsors.model";
 
-export function mapSponsorsSection(api: SponsorsSectionApiModel): SponsorsSectionModel {
+export function mapSponsorsSection(
+  api: SponsorsSectionApiModel,
+): SponsorsSectionModel {
   return {
     title: api.title,
     description: api.description,

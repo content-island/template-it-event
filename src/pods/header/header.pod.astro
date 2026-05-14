@@ -23,19 +23,29 @@ function resolveNavUrl(url: string): string {
   return url;
 }
 ---
-<header class="navbar bg-base-200/80 backdrop-blur-lg px-6 lg:px-8 sticky top-0 z-50 border-b border-base-300/60 min-h-16">
+
+<header
+  class="navbar bg-base-200/80 backdrop-blur-lg px-6 lg:px-8 sticky top-0 z-50 border-b border-base-300/60 min-h-16"
+>
   <div class="navbar-start">
-    <a href={`/${lang}/`} class="text-xl text-base-content font-(--font-title) tracking-tight">
+    <a
+      href={`/${lang}/`}
+      class="text-xl text-base-content font-(--font-title) tracking-tight"
+    >
       {header.eventName}
     </a>
   </div>
-  {isLandingPage && <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1 gap-2">
-      {header.navigationItems.map((item) => (
-        <NavItem label={item.label} url={resolveNavUrl(item.url)} />
-      ))}
-    </ul>
-  </div>}
+  {
+    isLandingPage && (
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 gap-2">
+          {header.navigationItems.map((item) => (
+            <NavItem label={item.label} url={resolveNavUrl(item.url)} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
   <div class="navbar-end gap-2">
     <button
       id="theme-toggle"
@@ -45,17 +55,25 @@ function resolveNavUrl(url: string): string {
       <Sun size={18} id="theme-icon-sun" />
       <Moon size={18} id="theme-icon-moon" />
     </button>
-    <a href={header.ctaUrl} class="btn btn-primary btn-md font-semibold shadow-sm hidden lg:flex">
+    <a
+      href={header.ctaUrl}
+      class="btn btn-primary btn-md font-semibold shadow-sm hidden lg:flex"
+    >
       {header.ctaText}
     </a>
     <div class="dropdown dropdown-end lg:hidden">
       <div tabindex="0" role="button" class="btn btn-ghost">
         <Menu size={20} />
       </div>
-      <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200 z-10 mt-3 p-4 shadow-lg w-full fixed left-0 right-0 rounded-none border-b border-base-300/60">
-        {header.navigationItems.map((item) => (
-          <NavItem label={item.label} url={resolveNavUrl(item.url)} />
-        ))}
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-200 z-10 mt-3 p-4 shadow-lg w-full fixed left-0 right-0 rounded-none border-b border-base-300/60"
+      >
+        {
+          header.navigationItems.map((item) => (
+            <NavItem label={item.label} url={resolveNavUrl(item.url)} />
+          ))
+        }
       </ul>
     </div>
   </div>
@@ -63,10 +81,10 @@ function resolveNavUrl(url: string): string {
 
 <script>
   import { Theme } from "#pods/theme/theme.model";
-  const btn = document.getElementById('theme-toggle');
+  const btn = document.getElementById("theme-toggle");
   const root = document.documentElement;
-  const sunIcon = document.getElementById('theme-icon-sun');
-  const moonIcon = document.getElementById('theme-icon-moon');
+  const sunIcon = document.getElementById("theme-icon-sun");
+  const moonIcon = document.getElementById("theme-icon-moon");
 
   function normalizeTheme(value: string | undefined | null): Theme {
     if (value === Theme.Light || value === Theme.Dark) return value;
@@ -75,15 +93,15 @@ function resolveNavUrl(url: string): string {
 
   function applyTheme(theme: Theme) {
     root.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
     const isDark = theme === Theme.Dark;
-    sunIcon?.classList.toggle('hidden', isDark);
-    moonIcon?.classList.toggle('hidden', !isDark);
+    sunIcon?.classList.toggle("hidden", isDark);
+    moonIcon?.classList.toggle("hidden", !isDark);
   }
 
   applyTheme(normalizeTheme(root.dataset.theme));
 
-  btn?.addEventListener('click', () => {
+  btn?.addEventListener("click", () => {
     const current = normalizeTheme(root.dataset.theme);
     applyTheme(current === Theme.Dark ? Theme.Light : Theme.Dark);
   });
