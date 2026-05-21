@@ -54,10 +54,7 @@ function hslToHex(h: number, s: number, l: number): string {
   if (sNorm === 0) {
     r = g = b = lNorm;
   } else {
-    const q =
-      lNorm < 0.5
-        ? lNorm * (1 + sNorm)
-        : lNorm + sNorm - lNorm * sNorm;
+    const q = lNorm < 0.5 ? lNorm * (1 + sNorm) : lNorm + sNorm - lNorm * sNorm;
     const p = 2 * lNorm - q;
     r = hue2rgb(p, q, hNorm + 1 / 3);
     g = hue2rgb(p, q, hNorm);
@@ -87,9 +84,7 @@ const SCALE_LIGHTNESS: Record<string, number> = {
   "950": 9,
 };
 
-export function generateColorScale(
-  hex: string
-): Record<string, string> {
+export function generateColorScale(hex: string): Record<string, string> {
   const [h, s] = hexToHsl(hex);
   const scale: Record<string, string> = {};
 
@@ -105,10 +100,7 @@ export function generateColorScale(
  * e.g. generateColorScaleVars("#6C63FF", "primary")
  * → "--color-primary-50: #f5f4ff; --color-primary-100: ..."
  */
-export function generateColorScaleVars(
-  hex: string,
-  name: string
-): string {
+export function generateColorScaleVars(hex: string, name: string): string {
   const scale = generateColorScale(hex);
   return Object.entries(scale)
     .map(([step, color]) => `--color-${name}-${step}: ${color}`)

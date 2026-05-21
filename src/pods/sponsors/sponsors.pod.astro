@@ -56,49 +56,80 @@ const tierConfig: Record<SponsorTier, TierConfig> = {
   },
 };
 
-const sponsorsByTier = tiers.reduce((acc, tier) => {
-  acc[tier] = section.sponsors.filter((s) => s.tier === tier);
-  return acc;
-}, {} as Record<SponsorTier, typeof section.sponsors>);
+const sponsorsByTier = tiers.reduce(
+  (acc, tier) => {
+    acc[tier] = section.sponsors.filter((s) => s.tier === tier);
+    return acc;
+  },
+  {} as Record<SponsorTier, typeof section.sponsors>,
+);
 ---
-<section id="sponsors" class="section-padding px-6 bg-base-200/30">
+
+<section
+  id="sponsors"
+  aria-labelledby="sponsors-title"
+  class="section-padding px-6 bg-base-200/30"
+>
   <div class="section-container">
     <div class="section-header">
-      <h2 class="section-title md:text-5xl">{section.title}</h2>
-      {section.description && (
-        <p class="section-description max-w-2xl mx-auto">{section.description}</p>
-      )}
+      <h2 id="sponsors-title" class="section-title md:text-5xl">
+        {section.title}
+      </h2>
+      {
+        section.description && (
+          <p class="section-description max-w-2xl mx-auto">
+            {section.description}
+          </p>
+        )
+      }
     </div>
 
-    {tiers.map((tier) => sponsorsByTier[tier].length > 0 && (
-      <div class="mb-16 last:mb-0">
-        <div class="flex items-center justify-center gap-3 mb-10">
-          <div class="divider-fade"></div>
-          <span class:list={["badge badge-sm p-2 px-4 rounded-md font-semibold uppercase tracking-widest", tierConfig[tier].badgeClass]}>
-            {tierConfig[tier].label}
-          </span>
-          <div class="divider-fade"></div>
-        </div>
-        <div class:list={["flex flex-wrap justify-center gap-5 mx-auto", tierConfig[tier].maxWidth]}>
-          {sponsorsByTier[tier].map((sponsor) => (
-            <SponsorLogo
-              sponsor={sponsor}
-              cardBorder={tierConfig[tier].cardBorder}
-              cardPadding={tierConfig[tier].cardPadding}
-              logoMaxH={tierConfig[tier].logoMaxH}
-              cardWidth={tierConfig[tier].cardWidth}
-            />
-          ))}
-        </div>
-      </div>
-    ))}
+    {
+      tiers.map(
+        (tier) =>
+          sponsorsByTier[tier].length > 0 && (
+            <div class="mb-16 last:mb-0">
+              <div class="flex items-center justify-center gap-3 mb-10">
+                <div class="divider-fade" />
+                <span
+                  class:list={[
+                    "badge badge-sm p-2 px-4 rounded-md font-semibold uppercase tracking-widest",
+                    tierConfig[tier].badgeClass,
+                  ]}
+                >
+                  {tierConfig[tier].label}
+                </span>
+                <div class="divider-fade" />
+              </div>
+              <div
+                class:list={[
+                  "flex flex-wrap justify-center gap-5 mx-auto",
+                  tierConfig[tier].maxWidth,
+                ]}
+              >
+                {sponsorsByTier[tier].map((sponsor) => (
+                  <SponsorLogo
+                    sponsor={sponsor}
+                    cardBorder={tierConfig[tier].cardBorder}
+                    cardPadding={tierConfig[tier].cardPadding}
+                    logoMaxH={tierConfig[tier].logoMaxH}
+                    cardWidth={tierConfig[tier].cardWidth}
+                  />
+                ))}
+              </div>
+            </div>
+          ),
+      )
+    }
 
-    {section.ctaText && section.ctaUrl && (
-      <div class="text-center mt-16">
-        <a href={section.ctaUrl} class="btn btn-outline btn-primary">
-          {section.ctaText}
-        </a>
-      </div>
-    )}
+    {
+      section.ctaText && section.ctaUrl && (
+        <div class="text-center mt-16">
+          <a href={section.ctaUrl} class="btn btn-outline">
+            {section.ctaText}
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>

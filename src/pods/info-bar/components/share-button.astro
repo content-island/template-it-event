@@ -9,6 +9,7 @@ interface Props {
 
 const { shareText, url } = Astro.props;
 ---
+
 <button
   id="share-btn"
   data-url={url}
@@ -38,7 +39,13 @@ const { shareText, url } = Astro.props;
   let resetTimer: ReturnType<typeof setTimeout> | null = null;
 
   btn?.addEventListener("click", async () => {
-    const url = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.search + window.location.hash;
+    const url =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      window.location.search +
+      window.location.hash;
 
     await navigator.clipboard.writeText(url);
 

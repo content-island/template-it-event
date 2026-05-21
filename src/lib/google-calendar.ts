@@ -1,7 +1,7 @@
 export interface GoogleCalendarEventOptions {
   title: string;
   startDate: string; // ISO 8601
-  endDate: string;   // ISO 8601
+  endDate: string; // ISO 8601
   location?: string;
   description?: string;
   timezone?: string;
@@ -12,7 +12,9 @@ function toAllDayDate(iso: string): string {
   return iso.slice(0, 10).replace(/-/g, "");
 }
 
-export function buildGoogleCalendarUrl(options: GoogleCalendarEventOptions): string {
+export function buildGoogleCalendarUrl(
+  options: GoogleCalendarEventOptions,
+): string {
   const endDate = new Date(options.endDate);
   endDate.setUTCDate(endDate.getUTCDate() + 1);
 

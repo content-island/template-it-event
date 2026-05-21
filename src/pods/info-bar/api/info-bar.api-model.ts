@@ -4,8 +4,8 @@ export interface InfoBarApiModel {
   venueName: string;
   venueLocation: string;
   eventTitle: string;
-  start: string;    // DD/MM/YYYY
-  endDate: string;  // DD/MM/YYYY
+  start: string; // DD/MM/YYYY
+  endDate: string; // DD/MM/YYYY
   timezone: string; // IANA timezone, e.g. "Europe/Madrid"
   eventDescription?: string;
   shareLinkUrl: string;
