@@ -9,11 +9,16 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const [raw, cookiesPage] = await Promise.all([getCookieBanner(lang), getCookies(lang)]);
+const [raw, cookiesPage] = await Promise.all([
+  getCookieBanner(lang),
+  getCookies(lang),
+]);
 if (!raw) return;
 
 const banner = mapCookieBanner(raw);
-const cookiesUrl = cookiesPage ? `/${lang}/${cookiesPage.slug}` : `/${lang}/cookies`;
+const cookiesUrl = cookiesPage
+  ? `/${lang}/${cookiesPage.slug}`
+  : `/${lang}/cookies`;
 ---
 
 <div
