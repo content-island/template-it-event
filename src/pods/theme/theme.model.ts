@@ -1,4 +1,8 @@
-export interface ThemeModeModel {
+export interface ThemeVariantModel {
+  colorPrimary: string;
+  colorSecondary: string;
+  fontTitle: string;
+  fontBody: string;
   colorBackground: string;
   colorSurface: string;
   colorCard: string;
@@ -6,13 +10,8 @@ export interface ThemeModeModel {
 }
 
 export interface ThemeModel {
-  name: string;
-  colorPrimary: string;
-  colorSecondary: string;
-  fontTitle: string;
-  fontBody: string;
-  dark: ThemeModeModel | null;
-  light: ThemeModeModel | null;
+  dark: ThemeVariantModel | null;
+  light: ThemeVariantModel | null;
 }
 
 export enum Theme {

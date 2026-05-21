@@ -2,7 +2,9 @@ import type { SpeakersSectionApiModel } from "./api/speakers.api-model";
 import type { SpeakersSectionModel } from "./speakers.model";
 import type { SocialTags } from "../../shared/social-tags.model";
 
-export function mapSpeakersSection(api: SpeakersSectionApiModel): SpeakersSectionModel {
+export function mapSpeakersSection(
+  api: SpeakersSectionApiModel,
+): SpeakersSectionModel {
   return {
     title: api.title,
     speakers: (api.SpeakersItems ?? []).map((s) => ({

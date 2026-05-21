@@ -1,4 +1,4 @@
-import { getTheme, getThemeDark, getThemeLight } from "#/pods/theme/api/theme.api";
+import { getThemes } from "#/pods/theme/api/theme.api";
 import { mapTheme } from "#/pods/theme/theme.mapper";
 import { getGeneral } from "#/pods/general/api/general.api";
 import { getFonts } from "#/pods/font/api/font.api";
@@ -13,20 +13,13 @@ interface LayoutData {
 }
 
 export async function getLayoutData(): Promise<LayoutData> {
-  const rawTheme = await getTheme();
-
-  const [themePair, general, fonts] = await Promise.all([
-    rawTheme
-      ? Promise.all([
-          rawTheme.dark ? getThemeDark(rawTheme.dark) : Promise.resolve(null),
-          rawTheme.light ? getThemeLight(rawTheme.light) : Promise.resolve(null),
-        ])
-      : Promise.resolve([null, null] as const),
+  const [themes, general, fonts] = await Promise.all([
+    getThemes(),
     getGeneral(),
     getFonts(),
   ]);
 
-  const theme = rawTheme ? mapTheme(rawTheme, themePair[0], themePair[1]) : null;
+  const theme = themes.length > 0 ? mapTheme(themes) : null;
 
   return { theme, general, fonts };
 }
