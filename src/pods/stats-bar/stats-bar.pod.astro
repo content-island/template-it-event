@@ -13,12 +13,17 @@ const raw = await getStatsBar(lang);
 if (!raw) return;
 const statsBar = mapStatsBar(raw);
 ---
+
 <section class="bg-base-200/60 py-14 border-y border-base-300/40">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="stats stats-vertical md:stats-horizontal gap-24 w-full shadow-none bg-transparent justify-center">
-      {statsBar.stats.map((stat) => (
-        <StatItem label={stat.label} value={stat.value} />
-      ))}
+    <div
+      class="stats stats-vertical md:stats-horizontal gap-24 w-full shadow-none bg-transparent justify-center"
+    >
+      {
+        statsBar.stats.map((stat) => (
+          <StatItem label={stat.label} value={stat.value} />
+        ))
+      }
     </div>
   </div>
 </section>

@@ -3,7 +3,8 @@ export type SponsorTier = "Platinium" | "Gold" | "Silver";
 export interface SponsorItemModel {
   id: string;
   name: string;
-  logoUrl?: string;
+  logoDarkUrl?: string;
+  logoLightUrl?: string;
   websiteUrl: string;
   tier: SponsorTier;
 }

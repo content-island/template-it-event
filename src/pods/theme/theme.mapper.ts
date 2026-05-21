@@ -1,8 +1,12 @@
-import type { ThemeApiModel, ThemeDarkApiModel, ThemeLightApiModel } from "./api/theme.api-model";
-import type { ThemeModeModel, ThemeModel } from "./theme.model";
+import type { ThemeApiModel } from "./api/theme.api-model";
+import type { ThemeVariantModel, ThemeModel } from "./theme.model";
 
-export function mapThemeMode(api: ThemeDarkApiModel | ThemeLightApiModel): ThemeModeModel {
+function mapThemeVariant(api: ThemeApiModel): ThemeVariantModel {
   return {
+    colorPrimary: api.colorPrimary,
+    colorSecondary: api.colorSecondary,
+    fontTitle: api.fontTitle,
+    fontBody: api.fontBody,
     colorBackground: api.colorBackground,
     colorSurface: api.colorSurface,
     colorCard: api.colorCard,
@@ -10,18 +14,12 @@ export function mapThemeMode(api: ThemeDarkApiModel | ThemeLightApiModel): Theme
   };
 }
 
-export function mapTheme(
-  api: ThemeApiModel,
-  dark: ThemeDarkApiModel | null,
-  light: ThemeLightApiModel | null,
-): ThemeModel {
+export function mapTheme(themes: ThemeApiModel[]): ThemeModel {
+  const darkApi = themes.find((t) => t.isDark) ?? null;
+  const lightApi = themes.find((t) => !t.isDark) ?? null;
+
   return {
-    name: api.name,
-    colorPrimary: api.colorPrimary,
-    colorSecondary: api.colorSecondary,
-    fontTitle: api.fontTitle,
-    fontBody: api.fontBody,
-    dark: dark ? mapThemeMode(dark) : null,
-    light: light ? mapThemeMode(light) : null,
+    dark: darkApi ? mapThemeVariant(darkApi) : null,
+    light: lightApi ? mapThemeVariant(lightApi) : null,
   };
 }
