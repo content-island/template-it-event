@@ -2,7 +2,9 @@ import { client } from "#/lib/client";
 import type { LanguageCode } from "@content-island/api-client";
 import type { CookiesApiModel } from "./cookies.api-model";
 
-export async function getCookies(language: LanguageCode): Promise<CookiesApiModel | null> {
+export async function getCookies(
+  language: LanguageCode,
+): Promise<CookiesApiModel | null> {
   try {
     const list = await client.getContentList<CookiesApiModel>({
       contentType: "Cookies",
