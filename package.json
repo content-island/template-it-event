@@ -15,7 +15,7 @@
     "astro": "^6.4.4",
     "daisyui": "^5.5.23",
     "lucide-astro": "^0.556.0",
-    "marked": "^18.0.3",
+    "marked": "^18.0.5",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
