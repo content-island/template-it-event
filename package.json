@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@content-island/api-client": "^0.23.0",
-    "@tailwindcss/vite": "^4.3.1",
+    "@tailwindcss/vite": "^4.3.2",
     "astro": "^6.4.8",
     "daisyui": "^5.6.6",
     "lucide-astro": "^0.556.0",
@@ -19,7 +19,7 @@
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1"
   },
   "overrides": {
