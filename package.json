@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@content-island/api-client": "^0.23.0",
-    "@tailwindcss/vite": "^4.3.1",
+    "@tailwindcss/vite": "^4.3.2",
     "astro": "^6.4.8",
     "daisyui": "^5.5.23",
     "lucide-astro": "^0.556.0",
