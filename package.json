@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@content-island/api-client": "^0.25.0",
+    "@content-island/api-client": "^0.26.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^6.4.8",
     "daisyui": "^5.7.17",
