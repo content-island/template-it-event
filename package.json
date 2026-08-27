@@ -13,7 +13,7 @@
     "@content-island/api-client": "^0.26.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^6.4.8",
-    "daisyui": "^5.7.17",
+    "daisyui": "^5.7.22",
     "lucide-astro": "^0.556.0",
     "marked": "^18.0.10",
     "tailwindcss": "^4.3.3"
