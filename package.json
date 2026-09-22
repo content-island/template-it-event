@@ -12,17 +12,17 @@
   "dependencies": {
     "@content-island/api-client": "^0.26.0",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^6.4.8",
-    "daisyui": "^5.7.37",
+    "astro": "^7.3.3",
+    "daisyui": "^5.7.43",
     "lucide-astro": "^0.556.0",
-    "marked": "^18.0.12",
+    "marked": "^18.0.14",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "prettier": "^3.9.6",
-    "prettier-plugin-astro": "^1.0.0"
+    "prettier": "^3.9.8",
+    "prettier-plugin-astro": "^1.0.1"
   },
   "overrides": {
-    "vite": "^7"
+    "vite": "^8"
   }
 }
